@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 10, 2023 at 06:38 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.1.17
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 09, 2023 at 03:16 PM
+-- Server version: 8.0.27
+-- PHP Version: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,11 +27,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `wp_v631commentmeta`
 --
 
-CREATE TABLE `wp_v631commentmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL,
-  `comment_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `meta_key` varchar(255) DEFAULT NULL,
-  `meta_value` longtext DEFAULT NULL
+DROP TABLE IF EXISTS `wp_v631commentmeta`;
+CREATE TABLE IF NOT EXISTS `wp_v631commentmeta` (
+  `meta_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `comment_id` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `meta_key` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `meta_value` longtext COLLATE utf8mb4_unicode_520_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `comment_id` (`comment_id`),
+  KEY `meta_key` (`meta_key`(191))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
@@ -40,23 +44,30 @@ CREATE TABLE `wp_v631commentmeta` (
 -- Table structure for table `wp_v631comments`
 --
 
-CREATE TABLE `wp_v631comments` (
-  `comment_ID` bigint(20) UNSIGNED NOT NULL,
-  `comment_post_ID` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `comment_author` tinytext NOT NULL,
-  `comment_author_email` varchar(100) NOT NULL DEFAULT '',
-  `comment_author_url` varchar(200) NOT NULL DEFAULT '',
-  `comment_author_IP` varchar(100) NOT NULL DEFAULT '',
+DROP TABLE IF EXISTS `wp_v631comments`;
+CREATE TABLE IF NOT EXISTS `wp_v631comments` (
+  `comment_ID` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `comment_post_ID` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `comment_author` tinytext COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `comment_author_email` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `comment_author_url` varchar(200) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `comment_author_IP` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
   `comment_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `comment_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `comment_content` text NOT NULL,
-  `comment_karma` int(11) NOT NULL DEFAULT 0,
-  `comment_approved` varchar(20) NOT NULL DEFAULT '1',
-  `comment_agent` varchar(255) NOT NULL DEFAULT '',
-  `comment_type` varchar(20) NOT NULL DEFAULT 'comment',
-  `comment_parent` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `comment_content` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `comment_karma` int NOT NULL DEFAULT '0',
+  `comment_approved` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '1',
+  `comment_agent` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `comment_type` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'comment',
+  `comment_parent` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `user_id` bigint UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`comment_ID`),
+  KEY `comment_post_ID` (`comment_post_ID`),
+  KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
+  KEY `comment_date_gmt` (`comment_date_gmt`),
+  KEY `comment_parent` (`comment_parent`),
+  KEY `comment_author_email` (`comment_author_email`(10))
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Dumping data for table `wp_v631comments`
@@ -71,20 +82,23 @@ INSERT INTO `wp_v631comments` (`comment_ID`, `comment_post_ID`, `comment_author`
 -- Table structure for table `wp_v631links`
 --
 
-CREATE TABLE `wp_v631links` (
-  `link_id` bigint(20) UNSIGNED NOT NULL,
-  `link_url` varchar(255) NOT NULL DEFAULT '',
-  `link_name` varchar(255) NOT NULL DEFAULT '',
-  `link_image` varchar(255) NOT NULL DEFAULT '',
-  `link_target` varchar(25) NOT NULL DEFAULT '',
-  `link_description` varchar(255) NOT NULL DEFAULT '',
-  `link_visible` varchar(20) NOT NULL DEFAULT 'Y',
-  `link_owner` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
-  `link_rating` int(11) NOT NULL DEFAULT 0,
+DROP TABLE IF EXISTS `wp_v631links`;
+CREATE TABLE IF NOT EXISTS `wp_v631links` (
+  `link_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `link_url` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `link_name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `link_image` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `link_target` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `link_description` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `link_visible` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Y',
+  `link_owner` bigint UNSIGNED NOT NULL DEFAULT '1',
+  `link_rating` int NOT NULL DEFAULT '0',
   `link_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `link_rel` varchar(255) NOT NULL DEFAULT '',
-  `link_notes` mediumtext NOT NULL,
-  `link_rss` varchar(255) NOT NULL DEFAULT ''
+  `link_rel` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `link_notes` mediumtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `link_rss` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`link_id`),
+  KEY `link_visible` (`link_visible`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
@@ -93,12 +107,16 @@ CREATE TABLE `wp_v631links` (
 -- Table structure for table `wp_v631options`
 --
 
-CREATE TABLE `wp_v631options` (
-  `option_id` bigint(20) UNSIGNED NOT NULL,
-  `option_name` varchar(191) NOT NULL DEFAULT '',
-  `option_value` longtext NOT NULL,
-  `autoload` varchar(20) NOT NULL DEFAULT 'yes'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+DROP TABLE IF EXISTS `wp_v631options`;
+CREATE TABLE IF NOT EXISTS `wp_v631options` (
+  `option_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `option_name` varchar(191) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `option_value` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `autoload` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'yes',
+  PRIMARY KEY (`option_id`),
+  UNIQUE KEY `option_name` (`option_name`),
+  KEY `autoload` (`autoload`)
+) ENGINE=MyISAM AUTO_INCREMENT=234 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Dumping data for table `wp_v631options`
@@ -262,7 +280,7 @@ INSERT INTO `wp_v631options` (`option_id`, `option_name`, `option_value`, `autol
 (193, '_site_transient_timeout_php_check_8cf1643c50bfbac60523b23e1f6543c8', '1697514831', 'no'),
 (194, '_site_transient_php_check_8cf1643c50bfbac60523b23e1f6543c8', 'a:5:{s:19:\"recommended_version\";s:3:\"7.4\";s:15:\"minimum_version\";s:3:\"7.0\";s:12:\"is_supported\";b:1;s:9:\"is_secure\";b:1;s:13:\"is_acceptable\";b:1;}', 'no'),
 (196, '_site_transient_browser_84fb6a68ab92a6d30981c69a1117885c', 'a:10:{s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:9:\"117.0.0.0\";s:8:\"platform\";s:9:\"Macintosh\";s:10:\"update_url\";s:29:\"https://www.google.com/chrome\";s:7:\"img_src\";s:43:\"http://s.w.org/images/browsers/chrome.png?1\";s:11:\"img_src_ssl\";s:44:\"https://s.w.org/images/browsers/chrome.png?1\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;s:6:\"mobile\";b:0;}', 'no'),
-(197, '_site_transient_timeout_community-events-d41d8cd98f00b204e9800998ecf8427e', '1696905039', 'no'),
+(197, '_site_transient_timeout_community-events-d41d8cd98f00b204e9800998ecf8427e', '1696907679', 'no'),
 (198, '_site_transient_community-events-d41d8cd98f00b204e9800998ecf8427e', 'a:4:{s:9:\"sandboxed\";b:0;s:5:\"error\";N;s:8:\"location\";a:1:{s:2:\"ip\";b:0;}s:6:\"events\";a:0:{}}', 'no'),
 (199, '_transient_timeout_feed_9bbd59226dc36b9b26cd43f15694c5c3', '1696953240', 'no');
 INSERT INTO `wp_v631options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
@@ -278,7 +296,9 @@ INSERT INTO `wp_v631options` (`option_id`, `option_name`, `option_value`, `autol
 (221, '_site_transient_browser_22210ca73bf1af2ec2eace74a96ee356', 'a:10:{s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:9:\"117.0.0.0\";s:8:\"platform\";s:7:\"Windows\";s:10:\"update_url\";s:29:\"https://www.google.com/chrome\";s:7:\"img_src\";s:43:\"http://s.w.org/images/browsers/chrome.png?1\";s:11:\"img_src_ssl\";s:44:\"https://s.w.org/images/browsers/chrome.png?1\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;s:6:\"mobile\";b:0;}', 'no'),
 (222, '_site_transient_timeout_php_check_7772753a7ea0fe5c6dd1e8406c9ba6ba', '1697466408', 'no'),
 (223, '_site_transient_php_check_7772753a7ea0fe5c6dd1e8406c9ba6ba', 'a:5:{s:19:\"recommended_version\";s:3:\"7.4\";s:15:\"minimum_version\";s:3:\"7.0\";s:12:\"is_supported\";b:0;s:9:\"is_secure\";b:0;s:13:\"is_acceptable\";b:0;}', 'no'),
-(227, 'recently_activated', 'a:0:{}', 'yes');
+(227, 'recently_activated', 'a:0:{}', 'yes'),
+(231, '_site_transient_timeout_php_check_1d343e7f9aee33bb3a30d3fe7077ec03', '1697469277', 'no'),
+(232, '_site_transient_php_check_1d343e7f9aee33bb3a30d3fe7077ec03', 'a:5:{s:19:\"recommended_version\";s:3:\"7.4\";s:15:\"minimum_version\";s:3:\"7.0\";s:12:\"is_supported\";b:1;s:9:\"is_secure\";b:1;s:13:\"is_acceptable\";b:1;}', 'no');
 
 -- --------------------------------------------------------
 
@@ -286,12 +306,16 @@ INSERT INTO `wp_v631options` (`option_id`, `option_name`, `option_value`, `autol
 -- Table structure for table `wp_v631postmeta`
 --
 
-CREATE TABLE `wp_v631postmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL,
-  `post_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `meta_key` varchar(255) DEFAULT NULL,
-  `meta_value` longtext DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+DROP TABLE IF EXISTS `wp_v631postmeta`;
+CREATE TABLE IF NOT EXISTS `wp_v631postmeta` (
+  `meta_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `post_id` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `meta_key` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `meta_value` longtext COLLATE utf8mb4_unicode_520_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `post_id` (`post_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Dumping data for table `wp_v631postmeta`
@@ -329,7 +353,9 @@ INSERT INTO `wp_v631postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) V
 (34, 25, '_wp_attachment_metadata', 'a:6:{s:5:\"width\";i:320;s:6:\"height\";i:320;s:4:\"file\";s:47:\"2023/10/96fdcd65ef075b128f36c289a62723db_tn.jpg\";s:8:\"filesize\";i:18016;s:5:\"sizes\";a:2:{s:6:\"medium\";a:5:{s:4:\"file\";s:47:\"96fdcd65ef075b128f36c289a62723db_tn-300x300.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:9872;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:47:\"96fdcd65ef075b128f36c289a62723db_tn-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:4608;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
 (36, 27, '_wp_trash_meta_status', 'publish'),
 (37, 27, '_wp_trash_meta_time', '1696861822'),
-(38, 28, '_edit_lock', '1696912695:2');
+(38, 28, '_edit_lock', '1696912695:2'),
+(40, 30, '_edit_lock', '1696864552:1'),
+(41, 30, '_oembed_95c6fae817b2de3e1618388ad08caf4a', '{{unknown}}');
 
 -- --------------------------------------------------------
 
@@ -337,31 +363,37 @@ INSERT INTO `wp_v631postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) V
 -- Table structure for table `wp_v631posts`
 --
 
-CREATE TABLE `wp_v631posts` (
-  `ID` bigint(20) UNSIGNED NOT NULL,
-  `post_author` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+DROP TABLE IF EXISTS `wp_v631posts`;
+CREATE TABLE IF NOT EXISTS `wp_v631posts` (
+  `ID` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `post_author` bigint UNSIGNED NOT NULL DEFAULT '0',
   `post_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `post_content` longtext NOT NULL,
-  `post_title` text NOT NULL,
-  `post_excerpt` text NOT NULL,
-  `post_status` varchar(20) NOT NULL DEFAULT 'publish',
-  `comment_status` varchar(20) NOT NULL DEFAULT 'open',
-  `ping_status` varchar(20) NOT NULL DEFAULT 'open',
-  `post_password` varchar(255) NOT NULL DEFAULT '',
-  `post_name` varchar(200) NOT NULL DEFAULT '',
-  `to_ping` text NOT NULL,
-  `pinged` text NOT NULL,
+  `post_content` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `post_title` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `post_excerpt` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `post_status` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'publish',
+  `comment_status` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'open',
+  `ping_status` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'open',
+  `post_password` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `post_name` varchar(200) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `to_ping` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `pinged` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `post_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_modified_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `post_content_filtered` longtext NOT NULL,
-  `post_parent` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `guid` varchar(255) NOT NULL DEFAULT '',
-  `menu_order` int(11) NOT NULL DEFAULT 0,
-  `post_type` varchar(20) NOT NULL DEFAULT 'post',
-  `post_mime_type` varchar(100) NOT NULL DEFAULT '',
-  `comment_count` bigint(20) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `post_content_filtered` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `post_parent` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `guid` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `menu_order` int NOT NULL DEFAULT '0',
+  `post_type` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'post',
+  `post_mime_type` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `comment_count` bigint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `post_name` (`post_name`(191)),
+  KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
+  KEY `post_parent` (`post_parent`),
+  KEY `post_author` (`post_author`)
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Dumping data for table `wp_v631posts`
@@ -398,6 +430,9 @@ INSERT INTO `wp_v631posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `
 (27, 1, '2023-10-09 14:30:22', '2023-10-09 14:30:22', '{\n    \"twentytwentyone::custom_logo\": {\n        \"value\": \"\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2023-10-09 14:30:22\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'aaf3b92d-bf25-4cd2-a79a-b24f13ca7155', '', '', '2023-10-09 14:30:22', '2023-10-09 14:30:22', '', 0, 'http://localhost:82/NhomG_WP_CMS_2023/2023/10/09/aaf3b92d-bf25-4cd2-a79a-b24f13ca7155/', 0, 'customize_changeset', '', 0),
 (28, 2, '2023-10-10 04:37:53', '2023-10-10 04:37:53', '<!-- wp:paragraph -->\n<p>NDO -&nbsp;Văn phòng Thủ tướng Israel Benjamin Netanyahu thông báo, ngày 8/10, Nội các An ninh Israel chính thức tuyên bố nước này “đang trong tình trạng chiến tranh sau cuộc tấn công thảm khốc của Hamas tại miền nam&nbsp;<a href=\"https://nhandan.vn/hoi-dong-bao-an-lien-hop-quoc-hop-khan-ve-tinh-hinh-israel-post776470.html\" target=\"_blank\" rel=\"noreferrer noopener\">Israel</a>\".</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Chủ nhật, ngày 08/10/2023 - 21:54</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"mailto:email@domain.com?subject=Israel%20tuy%C3%AAn%20b%E1%BB%91%20t%C3%ACnh%20tr%E1%BA%A1ng%20chi%E1%BA%BFn%20tranh%20sau%20khi%20x%E1%BA%A3y%20ra%20xung%20%C4%91%E1%BB%99t%20v%E1%BB%9Bi%20phong%20tr&amp;body=https%3A%2F%2Fnhandan.vn%2Fisrael-tuyen-bo-tinh-trang-chien-tranh-post776536.html\"></a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>0:00/0:00</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>0:00</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Nam miền Bắc</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><tbody><tr><td><img src=\"https://image.nhandan.vn/w800/Uploaded/2023/ovhunoh/2023_10_08/israel-6586.jpg.webp\" alt=\"Lực lượng an ninh Israel làm nhiệm vụ gần khu vực Sderot ở miền nam nước này, ngày 8/10/2023. (Ảnh: Reuters)\"></td></tr><tr><td>Lực lượng an ninh Israel làm nhiệm vụ gần khu vực Sderot ở miền nam nước này, ngày 8/10/2023. (Ảnh: Reuters)</td></tr></tbody></table></figure>\n<!-- /wp:table -->\n\n<!-- wp:paragraph -->\n<p>Trước đó, phát biểu tại cuộc họp khẩn Nội các An ninh ngày 7/10, Thủ tướng Netanyahu tuyên bố Israel đang trong tình trạng \"chiến tranh\", đồng thời cam kết kẻ địch sẽ phải “trả giá”.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rạng sáng cùng ngày, phong trào Hồi giáo Hamas ở Dải Gaza đã bắn hàng nghìn quả rocket vào&nbsp;<a href=\"https://nhandan.vn/israel-tag7032.html\">Israel</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Cập nhật số thương vong trong ngày thứ 2 xảy ra xung đột giữa Israel và phong trào&nbsp;<a href=\"https://nhandan.vn/hamas-tag33167.html\">Hamas</a>, Văn phòng Báo chí của chính quyền Israel cho biết, số người thiệt mạng tại nước này đã tăng lên hơn 600 người. Hơn 100 người Israel bị Hamas bắt giữ. Kênh truyền hình nhà nước Kan TV (Israel) dẫn thông tin của Bộ Y tế nước này cho biết có hơn 2.000 người bị thương.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Trong khi đó, Bộ Y tế tại&nbsp;<a href=\"https://nhandan.vn/au-keu-goi-cac-ben-cham-dut-xung-dot-tai-dai-gaza-post776531.html\" target=\"_blank\" rel=\"noreferrer noopener\">Dải Gaza</a>&nbsp;cho biết, số người thiệt mạng tại đây tăng lên 313 người, trong đó có 20 trẻ em, và 1.990 người bị thương.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Theo Cơ quan Cứu trợ và Việc làm cho người tị nạn Palestine của Liên hợp quốc (UNRWA), ít nhất 20.000 người Palestine từ nhiều tỉnh của Dải Gaza đã phải dời đến các trường học thuộc cơ quan này.</p>\n<!-- /wp:paragraph -->', 'Israel tuyên bố tình trạng chiến tranh', '', 'publish', 'open', 'open', '', 'israel-tuyen-bo-tinh-trang-chien-tranh', '', '', '2023-10-10 04:37:53', '2023-10-10 04:37:53', '', 0, 'http://localhost:82/NhomG_WP_CMS_2023/?p=28', 0, 'post', '', 0),
 (29, 2, '2023-10-10 04:37:53', '2023-10-10 04:37:53', '<!-- wp:paragraph -->\n<p>NDO -&nbsp;Văn phòng Thủ tướng Israel Benjamin Netanyahu thông báo, ngày 8/10, Nội các An ninh Israel chính thức tuyên bố nước này “đang trong tình trạng chiến tranh sau cuộc tấn công thảm khốc của Hamas tại miền nam&nbsp;<a href=\"https://nhandan.vn/hoi-dong-bao-an-lien-hop-quoc-hop-khan-ve-tinh-hinh-israel-post776470.html\" target=\"_blank\" rel=\"noreferrer noopener\">Israel</a>\".</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Chủ nhật, ngày 08/10/2023 - 21:54</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"mailto:email@domain.com?subject=Israel%20tuy%C3%AAn%20b%E1%BB%91%20t%C3%ACnh%20tr%E1%BA%A1ng%20chi%E1%BA%BFn%20tranh%20sau%20khi%20x%E1%BA%A3y%20ra%20xung%20%C4%91%E1%BB%99t%20v%E1%BB%9Bi%20phong%20tr&amp;body=https%3A%2F%2Fnhandan.vn%2Fisrael-tuyen-bo-tinh-trang-chien-tranh-post776536.html\"></a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>0:00/0:00</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>0:00</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Nam miền Bắc</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><tbody><tr><td><img src=\"https://image.nhandan.vn/w800/Uploaded/2023/ovhunoh/2023_10_08/israel-6586.jpg.webp\" alt=\"Lực lượng an ninh Israel làm nhiệm vụ gần khu vực Sderot ở miền nam nước này, ngày 8/10/2023. (Ảnh: Reuters)\"></td></tr><tr><td>Lực lượng an ninh Israel làm nhiệm vụ gần khu vực Sderot ở miền nam nước này, ngày 8/10/2023. (Ảnh: Reuters)</td></tr></tbody></table></figure>\n<!-- /wp:table -->\n\n<!-- wp:paragraph -->\n<p>Trước đó, phát biểu tại cuộc họp khẩn Nội các An ninh ngày 7/10, Thủ tướng Netanyahu tuyên bố Israel đang trong tình trạng \"chiến tranh\", đồng thời cam kết kẻ địch sẽ phải “trả giá”.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rạng sáng cùng ngày, phong trào Hồi giáo Hamas ở Dải Gaza đã bắn hàng nghìn quả rocket vào&nbsp;<a href=\"https://nhandan.vn/israel-tag7032.html\">Israel</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Cập nhật số thương vong trong ngày thứ 2 xảy ra xung đột giữa Israel và phong trào&nbsp;<a href=\"https://nhandan.vn/hamas-tag33167.html\">Hamas</a>, Văn phòng Báo chí của chính quyền Israel cho biết, số người thiệt mạng tại nước này đã tăng lên hơn 600 người. Hơn 100 người Israel bị Hamas bắt giữ. Kênh truyền hình nhà nước Kan TV (Israel) dẫn thông tin của Bộ Y tế nước này cho biết có hơn 2.000 người bị thương.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Trong khi đó, Bộ Y tế tại&nbsp;<a href=\"https://nhandan.vn/au-keu-goi-cac-ben-cham-dut-xung-dot-tai-dai-gaza-post776531.html\" target=\"_blank\" rel=\"noreferrer noopener\">Dải Gaza</a>&nbsp;cho biết, số người thiệt mạng tại đây tăng lên 313 người, trong đó có 20 trẻ em, và 1.990 người bị thương.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Theo Cơ quan Cứu trợ và Việc làm cho người tị nạn Palestine của Liên hợp quốc (UNRWA), ít nhất 20.000 người Palestine từ nhiều tỉnh của Dải Gaza đã phải dời đến các trường học thuộc cơ quan này.</p>\n<!-- /wp:paragraph -->', 'Israel tuyên bố tình trạng chiến tranh', '', 'inherit', 'closed', 'closed', '', '28-revision-v1', '', '', '2023-10-10 04:37:53', '2023-10-10 04:37:53', '', 28, 'http://localhost:82/NhomG_WP_CMS_2023/?p=29', 0, 'revision', '', 0);
+INSERT INTO `wp_v631posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
+(30, 1, '2023-10-09 15:15:53', '2023-10-09 15:15:53', '<!-- wp:paragraph -->\n<p><a href=\"https://bongdaplus.vn/tac-gia/ly-nam\">LÝ NAM</a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>20:31 ngày 09-10-2023</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul><!-- wp:list-item -->\n<li><a href=\"javascript:likenews();\">0</a></li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><a href=\"https://bongdaplus.vn/bong-da-the-gioi/hlv-inter-miami-bac-bo-tin-don-lionel-messi-tro-lai-barca-4131282310.html#binh-luan\">0</a></li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><a href=\"https://www.youtube.com/channel/UCmn1v6lrIDZghUfbxXaorUw\"></a></li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>https://www.facebook.com/v5.0/plugins/like.php?action=like&amp;app_id=322171506365362&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df3940dcae0910d8%26domain%3Dbongdaplus.vn%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fbongdaplus.vn%252Ffc6c19064100e%26relation%3Dparent.parent&amp;container_width=104&amp;href=https%3A%2F%2Fbongdaplus.vn%2Fbong-da-the-gioi%2Fhlv-inter-miami-bac-bo-tin-don-lionel-messi-tro-lai-barca-4131282310.html&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=false&amp;size=small&amp;width=</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>HLV trưởng của Inter Miami, Gerardo Martino đã cười nhạo những tin đồn cho rằng Lionel Messi sẽ trở lại Barcelona vào kỳ chuyển nhượng mùa đông tới.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"linkDestination\":\"custom\"} -->\n<figure class=\"wp-block-image\"><a href=\"https://shopee.vn/universal-link/product/140586149/7513271240?d_id=4afb9&amp;utm_content=2UeG72KNr7vr2eiXrp6iAxxmHufu&amp;utm_content=facebook&amp;deep_and_web=1&amp;utm_campaign=s140586149_ss_vn_fb00_ronewspray23&amp;utm_source=facebook&amp;utm_medium=seller&amp;smtt=9\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"https://cdn.bongdaplus.vn/Assets/Media/2023/10/09/31/messi-martino.jpg\" alt=\"HLV Inter Miami bác bỏ tin đồn Lionel Messi trở lại Barca\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Kể từ khi chia tay gã khổng lồ xứ Catalunya vào năm 2021, Messi đã không ít lần được cho là sẽ trở lại Camp Nou như một cái kết viên mãn, song anh vẫn lỡ hẹn với đội bóng cũ trong bối cảnh Blaugrana gặp quá nhiều khó khăn về tài chính.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Khi Messi chia tay Paris Saint-Germain vào mùa hè này, những đồn đoán về chuyến trở về Barcelona dành cho cầu thủ từng 7 lần giành Quả bóng Vàng lại một lần nữa tăng lên một cách đáng ngạc nhiên.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Tuy nhiên, nhà vô địch World Cup đã quyết định từ bỏ hy vọng đó cũng như những lời đề nghị từ Saudi Arabia để chuyển sang MLS ký hợp đồng với Inter Miami cho đến tháng 12/2025.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Chủ tịch Barca Joan Laporta tuyên bố rằng đội bóng của ông đã làm mọi thứ trong khả năng của mình để tái ký hợp đồng với Messi, siêu sao đã có khởi đầu vô cùng ấn tượng ở Bắc Mỹ với 11 bàn thắng và 5 đường kiến tạo sau 13 trận.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Cầu thủ 36 tuổi này đã ghi bàn trong mọi trận đấu cho Herons trong hành trình giành chức vô địch Leagues Cup, nhưng nỗ lực lọt vào vòng play-off MLS của họ đã thất bại khi anh vắng mặt vì chấn thương. Messi vào sân thay người ở hiệp 2 trận đấu với Cincinnati hôm Chủ nhật, nhưng anh không thể giúp đội bóng của Martino tránh khỏi thất bại 0-1, điều đã chấm dứt hy vọng đi tiếp của Miami.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><img alt=\"Messi vẫn chơi cực kỳ ấn tượng sau khi gia nhập Miami\" src=\"https://cdn.bongdaplus.vn/Assets/Media/2023/10/09/31/messi-miami1.jpg\"><em>Messi vẫn chơi cực kỳ ấn tượng sau khi gia nhập Miami</em></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Với việc Messi sắp phải nghỉ thi đấu trong một thời gian dài ở cấp CLB, các báo cáo gần đây cho rằng Barca có thể thực hiện động thái&nbsp;<a href=\"https://bongdaplus.vn/tin-chuyen-nhuong/lionel-messi-co-the-tro-lai-barca-vao-thang-1-4130282310.html\" target=\"_blank\" rel=\"noreferrer noopener\">tái ký hợp đồng với cầu thủ ghi bàn kỷ lục mọi thời đại của họ theo dạng mượn</a>&nbsp;vào tháng 1/2024. Tuy nhiên những thông tin này nhanh chóng bị HLV trưởng Martino của Inter Miami bác bỏ.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Khi được báo chí hỏi về tin đồn Messi trở lại Barca, Martino trả lời: \"Cậu ấy đi du lịch hả? Có lẽ cậu ấy sẽ về thăm Barcelona. Ngoài điều đó ra, tôi không biết gì khác\".</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Trước khi có cuộc chia ly mùi mẫn vào mùa hè năm 2021, Messi đã ghi 672 bàn thắng sau 778 trận cho Barcelona trên mọi đấu trường, cũng như 303 đường kiến tạo suốt 16 năm đầy vinh quang.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Bên cạnh sự khởi đầu nhanh chóng ở MLS, tiền đạo này tiếp tục tỏa sáng ở cấp độ quốc tế và đã ghi bàn trong 8 lần ra sân gần nhất cho Argentina. Messi không loại trừ việc thi đấu ở World Cup 2026 diễn ra tại Bắc Mỹ, mặc dù anh đã nhấn mạnh rằng anh muốn tập trung vào Copa America vào năm tới trước khi quyết định tương lai thi đấu quốc tế của mình.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Cầu thủ 36 tuổi này đã được triệu tập vào đội hình của Lionel Scaloni cho các trận đấu quốc tế tháng này, nơi La Albiceleste sẽ gặp Paraguay và Peru trong hai trận vòng loại World Cup 2026 tiếp theo của họ, lần lượt vào ngày 13 và 18/10.</p>\n<!-- /wp:paragraph -->', 'HLV Inter Miami bác bỏ tin đồn Lionel Messi trở lại Barca', '', 'publish', 'open', 'open', '', 'hlv-inter-miami-bac-bo-tin-don-lionel-messi-tro-lai-barca', '', '', '2023-10-09 15:15:53', '2023-10-09 15:15:53', '', 0, 'http://localhost:82/NhomG_WP_CMS_2023/?p=30', 0, 'post', '', 0),
+(31, 1, '2023-10-09 15:15:53', '2023-10-09 15:15:53', '<!-- wp:paragraph -->\n<p><a href=\"https://bongdaplus.vn/tac-gia/ly-nam\">LÝ NAM</a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>20:31 ngày 09-10-2023</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul><!-- wp:list-item -->\n<li><a href=\"javascript:likenews();\">0</a></li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><a href=\"https://bongdaplus.vn/bong-da-the-gioi/hlv-inter-miami-bac-bo-tin-don-lionel-messi-tro-lai-barca-4131282310.html#binh-luan\">0</a></li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><a href=\"https://www.youtube.com/channel/UCmn1v6lrIDZghUfbxXaorUw\"></a></li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>https://www.facebook.com/v5.0/plugins/like.php?action=like&amp;app_id=322171506365362&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df3940dcae0910d8%26domain%3Dbongdaplus.vn%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fbongdaplus.vn%252Ffc6c19064100e%26relation%3Dparent.parent&amp;container_width=104&amp;href=https%3A%2F%2Fbongdaplus.vn%2Fbong-da-the-gioi%2Fhlv-inter-miami-bac-bo-tin-don-lionel-messi-tro-lai-barca-4131282310.html&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=false&amp;size=small&amp;width=</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>HLV trưởng của Inter Miami, Gerardo Martino đã cười nhạo những tin đồn cho rằng Lionel Messi sẽ trở lại Barcelona vào kỳ chuyển nhượng mùa đông tới.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"linkDestination\":\"custom\"} -->\n<figure class=\"wp-block-image\"><a href=\"https://shopee.vn/universal-link/product/140586149/7513271240?d_id=4afb9&amp;utm_content=2UeG72KNr7vr2eiXrp6iAxxmHufu&amp;utm_content=facebook&amp;deep_and_web=1&amp;utm_campaign=s140586149_ss_vn_fb00_ronewspray23&amp;utm_source=facebook&amp;utm_medium=seller&amp;smtt=9\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"https://cdn.bongdaplus.vn/Assets/Media/2023/10/09/31/messi-martino.jpg\" alt=\"HLV Inter Miami bác bỏ tin đồn Lionel Messi trở lại Barca\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Kể từ khi chia tay gã khổng lồ xứ Catalunya vào năm 2021, Messi đã không ít lần được cho là sẽ trở lại Camp Nou như một cái kết viên mãn, song anh vẫn lỡ hẹn với đội bóng cũ trong bối cảnh Blaugrana gặp quá nhiều khó khăn về tài chính.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Khi Messi chia tay Paris Saint-Germain vào mùa hè này, những đồn đoán về chuyến trở về Barcelona dành cho cầu thủ từng 7 lần giành Quả bóng Vàng lại một lần nữa tăng lên một cách đáng ngạc nhiên.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Tuy nhiên, nhà vô địch World Cup đã quyết định từ bỏ hy vọng đó cũng như những lời đề nghị từ Saudi Arabia để chuyển sang MLS ký hợp đồng với Inter Miami cho đến tháng 12/2025.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Chủ tịch Barca Joan Laporta tuyên bố rằng đội bóng của ông đã làm mọi thứ trong khả năng của mình để tái ký hợp đồng với Messi, siêu sao đã có khởi đầu vô cùng ấn tượng ở Bắc Mỹ với 11 bàn thắng và 5 đường kiến tạo sau 13 trận.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Cầu thủ 36 tuổi này đã ghi bàn trong mọi trận đấu cho Herons trong hành trình giành chức vô địch Leagues Cup, nhưng nỗ lực lọt vào vòng play-off MLS của họ đã thất bại khi anh vắng mặt vì chấn thương. Messi vào sân thay người ở hiệp 2 trận đấu với Cincinnati hôm Chủ nhật, nhưng anh không thể giúp đội bóng của Martino tránh khỏi thất bại 0-1, điều đã chấm dứt hy vọng đi tiếp của Miami.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><img alt=\"Messi vẫn chơi cực kỳ ấn tượng sau khi gia nhập Miami\" src=\"https://cdn.bongdaplus.vn/Assets/Media/2023/10/09/31/messi-miami1.jpg\"><em>Messi vẫn chơi cực kỳ ấn tượng sau khi gia nhập Miami</em></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Với việc Messi sắp phải nghỉ thi đấu trong một thời gian dài ở cấp CLB, các báo cáo gần đây cho rằng Barca có thể thực hiện động thái&nbsp;<a href=\"https://bongdaplus.vn/tin-chuyen-nhuong/lionel-messi-co-the-tro-lai-barca-vao-thang-1-4130282310.html\" target=\"_blank\" rel=\"noreferrer noopener\">tái ký hợp đồng với cầu thủ ghi bàn kỷ lục mọi thời đại của họ theo dạng mượn</a>&nbsp;vào tháng 1/2024. Tuy nhiên những thông tin này nhanh chóng bị HLV trưởng Martino của Inter Miami bác bỏ.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Khi được báo chí hỏi về tin đồn Messi trở lại Barca, Martino trả lời: \"Cậu ấy đi du lịch hả? Có lẽ cậu ấy sẽ về thăm Barcelona. Ngoài điều đó ra, tôi không biết gì khác\".</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Trước khi có cuộc chia ly mùi mẫn vào mùa hè năm 2021, Messi đã ghi 672 bàn thắng sau 778 trận cho Barcelona trên mọi đấu trường, cũng như 303 đường kiến tạo suốt 16 năm đầy vinh quang.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Bên cạnh sự khởi đầu nhanh chóng ở MLS, tiền đạo này tiếp tục tỏa sáng ở cấp độ quốc tế và đã ghi bàn trong 8 lần ra sân gần nhất cho Argentina. Messi không loại trừ việc thi đấu ở World Cup 2026 diễn ra tại Bắc Mỹ, mặc dù anh đã nhấn mạnh rằng anh muốn tập trung vào Copa America vào năm tới trước khi quyết định tương lai thi đấu quốc tế của mình.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Cầu thủ 36 tuổi này đã được triệu tập vào đội hình của Lionel Scaloni cho các trận đấu quốc tế tháng này, nơi La Albiceleste sẽ gặp Paraguay và Peru trong hai trận vòng loại World Cup 2026 tiếp theo của họ, lần lượt vào ngày 13 và 18/10.</p>\n<!-- /wp:paragraph -->', 'HLV Inter Miami bác bỏ tin đồn Lionel Messi trở lại Barca', '', 'inherit', 'closed', 'closed', '', '30-revision-v1', '', '', '2023-10-09 15:15:53', '2023-10-09 15:15:53', '', 30, 'http://localhost:82/NhomG_WP_CMS_2023/?p=31', 0, 'revision', '', 0);
 
 -- --------------------------------------------------------
 
@@ -405,11 +440,15 @@ INSERT INTO `wp_v631posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `
 -- Table structure for table `wp_v631termmeta`
 --
 
-CREATE TABLE `wp_v631termmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL,
-  `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `meta_key` varchar(255) DEFAULT NULL,
-  `meta_value` longtext DEFAULT NULL
+DROP TABLE IF EXISTS `wp_v631termmeta`;
+CREATE TABLE IF NOT EXISTS `wp_v631termmeta` (
+  `meta_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `term_id` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `meta_key` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `meta_value` longtext COLLATE utf8mb4_unicode_520_ci,
+  PRIMARY KEY (`meta_id`),
+  KEY `term_id` (`term_id`),
+  KEY `meta_key` (`meta_key`(191))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
@@ -418,12 +457,16 @@ CREATE TABLE `wp_v631termmeta` (
 -- Table structure for table `wp_v631terms`
 --
 
-CREATE TABLE `wp_v631terms` (
-  `term_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(200) NOT NULL DEFAULT '',
-  `slug` varchar(200) NOT NULL DEFAULT '',
-  `term_group` bigint(20) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+DROP TABLE IF EXISTS `wp_v631terms`;
+CREATE TABLE IF NOT EXISTS `wp_v631terms` (
+  `term_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `slug` varchar(200) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `term_group` bigint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`term_id`),
+  KEY `slug` (`slug`(191)),
+  KEY `name` (`name`(191))
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Dumping data for table `wp_v631terms`
@@ -438,10 +481,13 @@ INSERT INTO `wp_v631terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 -- Table structure for table `wp_v631term_relationships`
 --
 
-CREATE TABLE `wp_v631term_relationships` (
-  `object_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `term_order` int(11) NOT NULL DEFAULT 0
+DROP TABLE IF EXISTS `wp_v631term_relationships`;
+CREATE TABLE IF NOT EXISTS `wp_v631term_relationships` (
+  `object_id` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `term_taxonomy_id` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `term_order` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`object_id`,`term_taxonomy_id`),
+  KEY `term_taxonomy_id` (`term_taxonomy_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
@@ -457,7 +503,8 @@ INSERT INTO `wp_v631term_relationships` (`object_id`, `term_taxonomy_id`, `term_
 (19, 1, 0),
 (21, 1, 0),
 (24, 1, 0),
-(28, 1, 0);
+(28, 1, 0),
+(30, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -465,21 +512,25 @@ INSERT INTO `wp_v631term_relationships` (`object_id`, `term_taxonomy_id`, `term_
 -- Table structure for table `wp_v631term_taxonomy`
 --
 
-CREATE TABLE `wp_v631term_taxonomy` (
-  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL,
-  `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `taxonomy` varchar(32) NOT NULL DEFAULT '',
-  `description` longtext NOT NULL,
-  `parent` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `count` bigint(20) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+DROP TABLE IF EXISTS `wp_v631term_taxonomy`;
+CREATE TABLE IF NOT EXISTS `wp_v631term_taxonomy` (
+  `term_taxonomy_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `term_id` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `taxonomy` varchar(32) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `description` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `parent` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `count` bigint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`term_taxonomy_id`),
+  UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
+  KEY `taxonomy` (`taxonomy`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Dumping data for table `wp_v631term_taxonomy`
 --
 
 INSERT INTO `wp_v631term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `description`, `parent`, `count`) VALUES
-(1, 1, 'category', '', 0, 4);
+(1, 1, 'category', '', 0, 5);
 
 -- --------------------------------------------------------
 
@@ -487,12 +538,16 @@ INSERT INTO `wp_v631term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `
 -- Table structure for table `wp_v631usermeta`
 --
 
-CREATE TABLE `wp_v631usermeta` (
-  `umeta_id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `meta_key` varchar(255) DEFAULT NULL,
-  `meta_value` longtext DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+DROP TABLE IF EXISTS `wp_v631usermeta`;
+CREATE TABLE IF NOT EXISTS `wp_v631usermeta` (
+  `umeta_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL DEFAULT '0',
+  `meta_key` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `meta_value` longtext COLLATE utf8mb4_unicode_520_ci,
+  PRIMARY KEY (`umeta_id`),
+  KEY `user_id` (`user_id`),
+  KEY `meta_key` (`meta_key`(191))
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Dumping data for table `wp_v631usermeta`
@@ -533,7 +588,7 @@ INSERT INTO `wp_v631usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) 
 (32, 2, 'dismissed_wp_pointers', ''),
 (34, 2, 'wp_v631dashboard_quick_press_last_post_id', '18'),
 (35, 2, 'wp_v631persisted_preferences', 'a:2:{s:14:\"core/edit-post\";a:3:{s:26:\"isComplementaryAreaVisible\";b:1;s:12:\"welcomeGuide\";b:0;s:10:\"openPanels\";a:3:{i:0;s:11:\"post-status\";i:1;s:23:\"taxonomy-panel-post_tag\";i:2;s:23:\"taxonomy-panel-category\";}}s:9:\"_modified\";s:24:\"2023-10-10T03:55:52.702Z\";}'),
-(36, 1, 'session_tokens', 'a:2:{s:64:\"a5724fbaa0fbcbd7273b479267f5f23b19498631dc5bff5a6a6a08000d42a6db\";a:4:{s:10:\"expiration\";i:1697033382;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:111:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36\";s:5:\"login\";i:1696860582;}s:64:\"9076540d06a4b3947507f00b85d6b3c27768fd2252df95a1b2ca43b6da26406e\";a:4:{s:10:\"expiration\";i:1697034406;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:111:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36\";s:5:\"login\";i:1696861606;}}'),
+(36, 1, 'session_tokens', 'a:3:{s:64:\"a5724fbaa0fbcbd7273b479267f5f23b19498631dc5bff5a6a6a08000d42a6db\";a:4:{s:10:\"expiration\";i:1697033382;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:111:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36\";s:5:\"login\";i:1696860582;}s:64:\"9076540d06a4b3947507f00b85d6b3c27768fd2252df95a1b2ca43b6da26406e\";a:4:{s:10:\"expiration\";i:1697034406;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:111:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36\";s:5:\"login\";i:1696861606;}s:64:\"ccd7faae4f9bdcb2811d63af358f66c1a6862fcb6650eece074dbcf55a5f58a4\";a:4:{s:10:\"expiration\";i:1697037276;s:2:\"ip\";s:3:\"::1\";s:2:\"ua\";s:111:\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36\";s:5:\"login\";i:1696864476;}}'),
 (37, 1, 'wp_v631user-settings', 'mfold=o&libraryContent=browse'),
 (38, 1, 'wp_v631user-settings-time', '1696861775');
 
@@ -543,18 +598,23 @@ INSERT INTO `wp_v631usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) 
 -- Table structure for table `wp_v631users`
 --
 
-CREATE TABLE `wp_v631users` (
-  `ID` bigint(20) UNSIGNED NOT NULL,
-  `user_login` varchar(60) NOT NULL DEFAULT '',
-  `user_pass` varchar(255) NOT NULL DEFAULT '',
-  `user_nicename` varchar(50) NOT NULL DEFAULT '',
-  `user_email` varchar(100) NOT NULL DEFAULT '',
-  `user_url` varchar(100) NOT NULL DEFAULT '',
+DROP TABLE IF EXISTS `wp_v631users`;
+CREATE TABLE IF NOT EXISTS `wp_v631users` (
+  `ID` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_login` varchar(60) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `user_pass` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `user_nicename` varchar(50) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `user_email` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `user_url` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
   `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_activation_key` varchar(255) NOT NULL DEFAULT '',
-  `user_status` int(11) NOT NULL DEFAULT 0,
-  `display_name` varchar(250) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `user_activation_key` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  `user_status` int NOT NULL DEFAULT '0',
+  `display_name` varchar(250) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`ID`),
+  KEY `user_login_key` (`user_login`),
+  KEY `user_nicename` (`user_nicename`),
+  KEY `user_email` (`user_email`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
 -- Dumping data for table `wp_v631users`
@@ -563,180 +623,6 @@ CREATE TABLE `wp_v631users` (
 INSERT INTO `wp_v631users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
 (1, 'admin', '$P$BpgV1hiKF8YMJgotc4lGEegxtcwyRc1', 'admin', 'vuongvietthang135@gmail.com', 'http://localhost:82/NhomG_WP_CMS_2023', '2023-09-27 02:36:35', '', 0, 'admin'),
 (2, 'thanhlich', '$P$B.GVzcw0LwoaGrzLzLL9oRlZMl.QGy/', 'thanhlich', 'tlich555@gmail.com', 'http://TUYENDUNGG', '2023-10-10 03:54:58', '1696910098:$P$ByVeEQGeYLyh5cISYIbwY2EX7D7wJL0', 0, 'Thanh Lịch');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `wp_v631commentmeta`
---
-ALTER TABLE `wp_v631commentmeta`
-  ADD PRIMARY KEY (`meta_id`),
-  ADD KEY `comment_id` (`comment_id`),
-  ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `wp_v631comments`
---
-ALTER TABLE `wp_v631comments`
-  ADD PRIMARY KEY (`comment_ID`),
-  ADD KEY `comment_post_ID` (`comment_post_ID`),
-  ADD KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
-  ADD KEY `comment_date_gmt` (`comment_date_gmt`),
-  ADD KEY `comment_parent` (`comment_parent`),
-  ADD KEY `comment_author_email` (`comment_author_email`(10));
-
---
--- Indexes for table `wp_v631links`
---
-ALTER TABLE `wp_v631links`
-  ADD PRIMARY KEY (`link_id`),
-  ADD KEY `link_visible` (`link_visible`);
-
---
--- Indexes for table `wp_v631options`
---
-ALTER TABLE `wp_v631options`
-  ADD PRIMARY KEY (`option_id`),
-  ADD UNIQUE KEY `option_name` (`option_name`),
-  ADD KEY `autoload` (`autoload`);
-
---
--- Indexes for table `wp_v631postmeta`
---
-ALTER TABLE `wp_v631postmeta`
-  ADD PRIMARY KEY (`meta_id`),
-  ADD KEY `post_id` (`post_id`),
-  ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `wp_v631posts`
---
-ALTER TABLE `wp_v631posts`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `post_name` (`post_name`(191)),
-  ADD KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
-  ADD KEY `post_parent` (`post_parent`),
-  ADD KEY `post_author` (`post_author`);
-
---
--- Indexes for table `wp_v631termmeta`
---
-ALTER TABLE `wp_v631termmeta`
-  ADD PRIMARY KEY (`meta_id`),
-  ADD KEY `term_id` (`term_id`),
-  ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `wp_v631terms`
---
-ALTER TABLE `wp_v631terms`
-  ADD PRIMARY KEY (`term_id`),
-  ADD KEY `slug` (`slug`(191)),
-  ADD KEY `name` (`name`(191));
-
---
--- Indexes for table `wp_v631term_relationships`
---
-ALTER TABLE `wp_v631term_relationships`
-  ADD PRIMARY KEY (`object_id`,`term_taxonomy_id`),
-  ADD KEY `term_taxonomy_id` (`term_taxonomy_id`);
-
---
--- Indexes for table `wp_v631term_taxonomy`
---
-ALTER TABLE `wp_v631term_taxonomy`
-  ADD PRIMARY KEY (`term_taxonomy_id`),
-  ADD UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
-  ADD KEY `taxonomy` (`taxonomy`);
-
---
--- Indexes for table `wp_v631usermeta`
---
-ALTER TABLE `wp_v631usermeta`
-  ADD PRIMARY KEY (`umeta_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `meta_key` (`meta_key`(191));
-
---
--- Indexes for table `wp_v631users`
---
-ALTER TABLE `wp_v631users`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `user_login_key` (`user_login`),
-  ADD KEY `user_nicename` (`user_nicename`),
-  ADD KEY `user_email` (`user_email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `wp_v631commentmeta`
---
-ALTER TABLE `wp_v631commentmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `wp_v631comments`
---
-ALTER TABLE `wp_v631comments`
-  MODIFY `comment_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `wp_v631links`
---
-ALTER TABLE `wp_v631links`
-  MODIFY `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `wp_v631options`
---
-ALTER TABLE `wp_v631options`
-  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
-
---
--- AUTO_INCREMENT for table `wp_v631postmeta`
---
-ALTER TABLE `wp_v631postmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT for table `wp_v631posts`
---
-ALTER TABLE `wp_v631posts`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `wp_v631termmeta`
---
-ALTER TABLE `wp_v631termmeta`
-  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `wp_v631terms`
---
-ALTER TABLE `wp_v631terms`
-  MODIFY `term_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `wp_v631term_taxonomy`
---
-ALTER TABLE `wp_v631term_taxonomy`
-  MODIFY `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `wp_v631usermeta`
---
-ALTER TABLE `wp_v631usermeta`
-  MODIFY `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
-
---
--- AUTO_INCREMENT for table `wp_v631users`
---
-ALTER TABLE `wp_v631users`
-  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
