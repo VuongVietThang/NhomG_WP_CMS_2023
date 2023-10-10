@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th10 09, 2023 lúc 02:31 PM
--- Phiên bản máy phục vụ: 5.7.31
--- Phiên bản PHP: 7.3.21
+-- Host: localhost
+-- Generation Time: Oct 10, 2023 at 06:38 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,59 +18,48 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `wp_2023`
+-- Database: `wp_2023`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631commentmeta`
+-- Table structure for table `wp_v631commentmeta`
 --
 
-DROP TABLE IF EXISTS `wp_v631commentmeta`;
-CREATE TABLE IF NOT EXISTS `wp_v631commentmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `comment_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `meta_key` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_520_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `comment_id` (`comment_id`),
-  KEY `meta_key` (`meta_key`(191))
+CREATE TABLE `wp_v631commentmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL,
+  `comment_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `meta_key` varchar(255) DEFAULT NULL,
+  `meta_value` longtext DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631comments`
+-- Table structure for table `wp_v631comments`
 --
 
-DROP TABLE IF EXISTS `wp_v631comments`;
-CREATE TABLE IF NOT EXISTS `wp_v631comments` (
-  `comment_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `comment_post_ID` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `comment_author` tinytext COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `comment_author_email` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `comment_author_url` varchar(200) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `comment_author_IP` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+CREATE TABLE `wp_v631comments` (
+  `comment_ID` bigint(20) UNSIGNED NOT NULL,
+  `comment_post_ID` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `comment_author` tinytext NOT NULL,
+  `comment_author_email` varchar(100) NOT NULL DEFAULT '',
+  `comment_author_url` varchar(200) NOT NULL DEFAULT '',
+  `comment_author_IP` varchar(100) NOT NULL DEFAULT '',
   `comment_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `comment_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `comment_content` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `comment_karma` int(11) NOT NULL DEFAULT '0',
-  `comment_approved` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '1',
-  `comment_agent` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `comment_type` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'comment',
-  `comment_parent` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  PRIMARY KEY (`comment_ID`),
-  KEY `comment_post_ID` (`comment_post_ID`),
-  KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
-  KEY `comment_date_gmt` (`comment_date_gmt`),
-  KEY `comment_parent` (`comment_parent`),
-  KEY `comment_author_email` (`comment_author_email`(10))
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `comment_content` text NOT NULL,
+  `comment_karma` int(11) NOT NULL DEFAULT 0,
+  `comment_approved` varchar(20) NOT NULL DEFAULT '1',
+  `comment_agent` varchar(255) NOT NULL DEFAULT '',
+  `comment_type` varchar(20) NOT NULL DEFAULT 'comment',
+  `comment_parent` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631comments`
+-- Dumping data for table `wp_v631comments`
 --
 
 INSERT INTO `wp_v631comments` (`comment_ID`, `comment_post_ID`, `comment_author`, `comment_author_email`, `comment_author_url`, `comment_author_IP`, `comment_date`, `comment_date_gmt`, `comment_content`, `comment_karma`, `comment_approved`, `comment_agent`, `comment_type`, `comment_parent`, `user_id`) VALUES
@@ -79,47 +68,40 @@ INSERT INTO `wp_v631comments` (`comment_ID`, `comment_post_ID`, `comment_author`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631links`
+-- Table structure for table `wp_v631links`
 --
 
-DROP TABLE IF EXISTS `wp_v631links`;
-CREATE TABLE IF NOT EXISTS `wp_v631links` (
-  `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `link_url` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `link_name` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `link_image` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `link_target` varchar(25) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `link_description` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `link_visible` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Y',
-  `link_owner` bigint(20) UNSIGNED NOT NULL DEFAULT '1',
-  `link_rating` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `wp_v631links` (
+  `link_id` bigint(20) UNSIGNED NOT NULL,
+  `link_url` varchar(255) NOT NULL DEFAULT '',
+  `link_name` varchar(255) NOT NULL DEFAULT '',
+  `link_image` varchar(255) NOT NULL DEFAULT '',
+  `link_target` varchar(25) NOT NULL DEFAULT '',
+  `link_description` varchar(255) NOT NULL DEFAULT '',
+  `link_visible` varchar(20) NOT NULL DEFAULT 'Y',
+  `link_owner` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `link_rating` int(11) NOT NULL DEFAULT 0,
   `link_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `link_rel` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `link_notes` mediumtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `link_rss` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`link_id`),
-  KEY `link_visible` (`link_visible`)
+  `link_rel` varchar(255) NOT NULL DEFAULT '',
+  `link_notes` mediumtext NOT NULL,
+  `link_rss` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631options`
+-- Table structure for table `wp_v631options`
 --
 
-DROP TABLE IF EXISTS `wp_v631options`;
-CREATE TABLE IF NOT EXISTS `wp_v631options` (
-  `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `option_name` varchar(191) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `option_value` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `autoload` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'yes',
-  PRIMARY KEY (`option_id`),
-  UNIQUE KEY `option_name` (`option_name`),
-  KEY `autoload` (`autoload`)
-) ENGINE=MyISAM AUTO_INCREMENT=226 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+CREATE TABLE `wp_v631options` (
+  `option_id` bigint(20) UNSIGNED NOT NULL,
+  `option_name` varchar(191) NOT NULL DEFAULT '',
+  `option_value` longtext NOT NULL,
+  `autoload` varchar(20) NOT NULL DEFAULT 'yes'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631options`
+-- Dumping data for table `wp_v631options`
 --
 
 INSERT INTO `wp_v631options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
@@ -227,7 +209,7 @@ INSERT INTO `wp_v631options` (`option_id`, `option_name`, `option_value`, `autol
 (102, 'user_count', '2', 'no'),
 (103, 'widget_block', 'a:6:{i:2;a:1:{s:7:\"content\";s:19:\"<!-- wp:search /-->\";}i:3;a:1:{s:7:\"content\";s:154:\"<!-- wp:group --><div class=\"wp-block-group\"><!-- wp:heading --><h2>Recent Posts</h2><!-- /wp:heading --><!-- wp:latest-posts /--></div><!-- /wp:group -->\";}i:4;a:1:{s:7:\"content\";s:227:\"<!-- wp:group --><div class=\"wp-block-group\"><!-- wp:heading --><h2>Recent Comments</h2><!-- /wp:heading --><!-- wp:latest-comments {\"displayAvatar\":false,\"displayDate\":false,\"displayExcerpt\":false} /--></div><!-- /wp:group -->\";}i:5;a:1:{s:7:\"content\";s:146:\"<!-- wp:group --><div class=\"wp-block-group\"><!-- wp:heading --><h2>Archives</h2><!-- /wp:heading --><!-- wp:archives /--></div><!-- /wp:group -->\";}i:6;a:1:{s:7:\"content\";s:150:\"<!-- wp:group --><div class=\"wp-block-group\"><!-- wp:heading --><h2>Categories</h2><!-- /wp:heading --><!-- wp:categories /--></div><!-- /wp:group -->\";}s:12:\"_multiwidget\";i:1;}', 'yes'),
 (104, 'sidebars_widgets', 'a:3:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:5:{i:0;s:7:\"block-2\";i:1;s:7:\"block-3\";i:2;s:7:\"block-4\";i:3;s:7:\"block-5\";i:4;s:7:\"block-6\";}s:13:\"array_version\";i:3;}', 'yes'),
-(105, 'cron', 'a:9:{i:1696912596;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1696948596;a:4:{s:18:\"wp_https_detection\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1696948604;a:1:{s:21:\"wp_update_user_counts\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1696991795;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1696991804;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1696991806;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1697078196;a:1:{s:30:\"wp_site_health_scheduled_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"weekly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:604800;}}}i:1697514901;a:1:{s:30:\"wp_delete_temp_updater_backups\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"weekly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:604800;}}}s:7:\"version\";i:2;}', 'yes'),
+(105, 'cron', 'a:9:{i:1696916196;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1696948596;a:4:{s:18:\"wp_https_detection\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1696948604;a:1:{s:21:\"wp_update_user_counts\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1696991795;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1696991804;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1696991806;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1697078196;a:1:{s:30:\"wp_site_health_scheduled_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"weekly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:604800;}}}i:1697514901;a:1:{s:30:\"wp_delete_temp_updater_backups\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"weekly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:604800;}}}s:7:\"version\";i:2;}', 'yes'),
 (106, 'widget_pages', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (107, 'widget_calendar', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
 (108, 'widget_archives', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes'),
@@ -248,8 +230,8 @@ INSERT INTO `wp_v631options` (`option_id`, `option_name`, `option_value`, `autol
 (123, 'https_detection_errors', 'a:1:{s:20:\"https_request_failed\";a:1:{i:0;s:21:\"HTTPS request failed.\";}}', 'yes'),
 (124, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:1:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:6:\"latest\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-6.3.1.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-6.3.1.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-6.3.1-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-6.3.1-new-bundled.zip\";s:7:\"partial\";s:0:\"\";s:8:\"rollback\";s:0:\"\";}s:7:\"current\";s:5:\"6.3.1\";s:7:\"version\";s:5:\"6.3.1\";s:11:\"php_version\";s:5:\"7.0.0\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"6.1\";s:15:\"partial_version\";s:0:\"\";}}s:12:\"last_checked\";i:1696910027;s:15:\"version_checked\";s:5:\"6.3.1\";s:12:\"translations\";a:0:{}}', 'no'),
 (125, 'theme_mods_twentytwentythree', 'a:2:{s:18:\"custom_css_post_id\";i:-1;s:16:\"sidebars_widgets\";a:2:{s:4:\"time\";i:1696382529;s:4:\"data\";a:3:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:3:{i:0;s:7:\"block-2\";i:1;s:7:\"block-3\";i:2;s:7:\"block-4\";}s:9:\"sidebar-2\";a:2:{i:0;s:7:\"block-5\";i:1;s:7:\"block-6\";}}}}', 'yes'),
-(190, '_site_transient_timeout_theme_roots', '1696911828', 'no'),
-(191, '_site_transient_theme_roots', 'a:3:{s:15:\"twentytwentyone\";s:7:\"/themes\";s:17:\"twentytwentythree\";s:7:\"/themes\";s:15:\"twentytwentytwo\";s:7:\"/themes\";}', 'no'),
+(228, '_site_transient_timeout_theme_roots', '1696914435', 'no'),
+(229, '_site_transient_theme_roots', 'a:3:{s:15:\"twentytwentyone\";s:7:\"/themes\";s:17:\"twentytwentythree\";s:7:\"/themes\";s:15:\"twentytwentytwo\";s:7:\"/themes\";}', 'no'),
 (130, '_site_transient_update_themes', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1696910029;s:7:\"checked\";a:3:{s:15:\"twentytwentyone\";s:3:\"1.9\";s:17:\"twentytwentythree\";s:3:\"1.2\";s:15:\"twentytwentytwo\";s:3:\"1.5\";}s:8:\"response\";a:0:{}s:9:\"no_update\";a:3:{s:15:\"twentytwentyone\";a:6:{s:5:\"theme\";s:15:\"twentytwentyone\";s:11:\"new_version\";s:3:\"1.8\";s:3:\"url\";s:45:\"https://wordpress.org/themes/twentytwentyone/\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/theme/twentytwentyone.1.8.zip\";s:8:\"requires\";s:3:\"5.3\";s:12:\"requires_php\";s:3:\"5.6\";}s:17:\"twentytwentythree\";a:6:{s:5:\"theme\";s:17:\"twentytwentythree\";s:11:\"new_version\";s:3:\"1.2\";s:3:\"url\";s:47:\"https://wordpress.org/themes/twentytwentythree/\";s:7:\"package\";s:63:\"https://downloads.wordpress.org/theme/twentytwentythree.1.2.zip\";s:8:\"requires\";s:3:\"6.1\";s:12:\"requires_php\";s:3:\"5.6\";}s:15:\"twentytwentytwo\";a:6:{s:5:\"theme\";s:15:\"twentytwentytwo\";s:11:\"new_version\";s:3:\"1.4\";s:3:\"url\";s:45:\"https://wordpress.org/themes/twentytwentytwo/\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/theme/twentytwentytwo.1.4.zip\";s:8:\"requires\";s:3:\"5.9\";s:12:\"requires_php\";s:3:\"5.6\";}}s:12:\"translations\";a:0:{}}', 'no'),
 (192, '_site_transient_update_plugins', 'O:8:\"stdClass\":5:{s:12:\"last_checked\";i:1696910030;s:8:\"response\";a:1:{s:19:\"akismet/akismet.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:21:\"w.org/plugins/akismet\";s:4:\"slug\";s:7:\"akismet\";s:6:\"plugin\";s:19:\"akismet/akismet.php\";s:11:\"new_version\";s:3:\"5.3\";s:3:\"url\";s:38:\"https://wordpress.org/plugins/akismet/\";s:7:\"package\";s:54:\"https://downloads.wordpress.org/plugin/akismet.5.3.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:60:\"https://ps.w.org/akismet/assets/icon-256x256.png?rev=2818463\";s:2:\"1x\";s:60:\"https://ps.w.org/akismet/assets/icon-128x128.png?rev=2818463\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:63:\"https://ps.w.org/akismet/assets/banner-1544x500.png?rev=2900731\";s:2:\"1x\";s:62:\"https://ps.w.org/akismet/assets/banner-772x250.png?rev=2900731\";}s:11:\"banners_rtl\";a:0:{}s:8:\"requires\";s:3:\"5.8\";s:6:\"tested\";s:5:\"6.3.1\";s:12:\"requires_php\";s:6:\"5.6.20\";}}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:1:{s:9:\"hello.php\";O:8:\"stdClass\":10:{s:2:\"id\";s:25:\"w.org/plugins/hello-dolly\";s:4:\"slug\";s:11:\"hello-dolly\";s:6:\"plugin\";s:9:\"hello.php\";s:11:\"new_version\";s:5:\"1.7.2\";s:3:\"url\";s:42:\"https://wordpress.org/plugins/hello-dolly/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/plugin/hello-dolly.1.7.2.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:64:\"https://ps.w.org/hello-dolly/assets/icon-256x256.jpg?rev=2052855\";s:2:\"1x\";s:64:\"https://ps.w.org/hello-dolly/assets/icon-128x128.jpg?rev=2052855\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:67:\"https://ps.w.org/hello-dolly/assets/banner-1544x500.jpg?rev=2645582\";s:2:\"1x\";s:66:\"https://ps.w.org/hello-dolly/assets/banner-772x250.jpg?rev=2052855\";}s:11:\"banners_rtl\";a:0:{}s:8:\"requires\";s:3:\"4.6\";}}s:7:\"checked\";a:2:{s:19:\"akismet/akismet.php\";s:3:\"5.2\";s:9:\"hello.php\";s:5:\"1.7.2\";}}', 'no'),
 (152, 'finished_updating_comment_type', '1', 'yes'),
@@ -295,27 +277,24 @@ INSERT INTO `wp_v631options` (`option_id`, `option_name`, `option_value`, `autol
 (220, '_site_transient_timeout_browser_22210ca73bf1af2ec2eace74a96ee356', '1697466407', 'no'),
 (221, '_site_transient_browser_22210ca73bf1af2ec2eace74a96ee356', 'a:10:{s:4:\"name\";s:6:\"Chrome\";s:7:\"version\";s:9:\"117.0.0.0\";s:8:\"platform\";s:7:\"Windows\";s:10:\"update_url\";s:29:\"https://www.google.com/chrome\";s:7:\"img_src\";s:43:\"http://s.w.org/images/browsers/chrome.png?1\";s:11:\"img_src_ssl\";s:44:\"https://s.w.org/images/browsers/chrome.png?1\";s:15:\"current_version\";s:2:\"18\";s:7:\"upgrade\";b:0;s:8:\"insecure\";b:0;s:6:\"mobile\";b:0;}', 'no'),
 (222, '_site_transient_timeout_php_check_7772753a7ea0fe5c6dd1e8406c9ba6ba', '1697466408', 'no'),
-(223, '_site_transient_php_check_7772753a7ea0fe5c6dd1e8406c9ba6ba', 'a:5:{s:19:\"recommended_version\";s:3:\"7.4\";s:15:\"minimum_version\";s:3:\"7.0\";s:12:\"is_supported\";b:0;s:9:\"is_secure\";b:0;s:13:\"is_acceptable\";b:0;}', 'no');
+(223, '_site_transient_php_check_7772753a7ea0fe5c6dd1e8406c9ba6ba', 'a:5:{s:19:\"recommended_version\";s:3:\"7.4\";s:15:\"minimum_version\";s:3:\"7.0\";s:12:\"is_supported\";b:0;s:9:\"is_secure\";b:0;s:13:\"is_acceptable\";b:0;}', 'no'),
+(227, 'recently_activated', 'a:0:{}', 'yes');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631postmeta`
+-- Table structure for table `wp_v631postmeta`
 --
 
-DROP TABLE IF EXISTS `wp_v631postmeta`;
-CREATE TABLE IF NOT EXISTS `wp_v631postmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `post_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `meta_key` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_520_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `post_id` (`post_id`),
-  KEY `meta_key` (`meta_key`(191))
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+CREATE TABLE `wp_v631postmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL,
+  `post_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `meta_key` varchar(255) DEFAULT NULL,
+  `meta_value` longtext DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631postmeta`
+-- Dumping data for table `wp_v631postmeta`
 --
 
 INSERT INTO `wp_v631postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES
@@ -349,48 +328,43 @@ INSERT INTO `wp_v631postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) V
 (33, 25, '_wp_attached_file', '2023/10/96fdcd65ef075b128f36c289a62723db_tn.jpg'),
 (34, 25, '_wp_attachment_metadata', 'a:6:{s:5:\"width\";i:320;s:6:\"height\";i:320;s:4:\"file\";s:47:\"2023/10/96fdcd65ef075b128f36c289a62723db_tn.jpg\";s:8:\"filesize\";i:18016;s:5:\"sizes\";a:2:{s:6:\"medium\";a:5:{s:4:\"file\";s:47:\"96fdcd65ef075b128f36c289a62723db_tn-300x300.jpg\";s:5:\"width\";i:300;s:6:\"height\";i:300;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:9872;}s:9:\"thumbnail\";a:5:{s:4:\"file\";s:47:\"96fdcd65ef075b128f36c289a62723db_tn-150x150.jpg\";s:5:\"width\";i:150;s:6:\"height\";i:150;s:9:\"mime-type\";s:10:\"image/jpeg\";s:8:\"filesize\";i:4608;}}s:10:\"image_meta\";a:12:{s:8:\"aperture\";s:1:\"0\";s:6:\"credit\";s:0:\"\";s:6:\"camera\";s:0:\"\";s:7:\"caption\";s:0:\"\";s:17:\"created_timestamp\";s:1:\"0\";s:9:\"copyright\";s:0:\"\";s:12:\"focal_length\";s:1:\"0\";s:3:\"iso\";s:1:\"0\";s:13:\"shutter_speed\";s:1:\"0\";s:5:\"title\";s:0:\"\";s:11:\"orientation\";s:1:\"0\";s:8:\"keywords\";a:0:{}}}'),
 (36, 27, '_wp_trash_meta_status', 'publish'),
-(37, 27, '_wp_trash_meta_time', '1696861822');
+(37, 27, '_wp_trash_meta_time', '1696861822'),
+(38, 28, '_edit_lock', '1696912695:2');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631posts`
+-- Table structure for table `wp_v631posts`
 --
 
-DROP TABLE IF EXISTS `wp_v631posts`;
-CREATE TABLE IF NOT EXISTS `wp_v631posts` (
-  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `post_author` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
+CREATE TABLE `wp_v631posts` (
+  `ID` bigint(20) UNSIGNED NOT NULL,
+  `post_author` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
   `post_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `post_content` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `post_title` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `post_excerpt` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `post_status` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'publish',
-  `comment_status` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'open',
-  `ping_status` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'open',
-  `post_password` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `post_name` varchar(200) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `to_ping` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `pinged` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `post_content` longtext NOT NULL,
+  `post_title` text NOT NULL,
+  `post_excerpt` text NOT NULL,
+  `post_status` varchar(20) NOT NULL DEFAULT 'publish',
+  `comment_status` varchar(20) NOT NULL DEFAULT 'open',
+  `ping_status` varchar(20) NOT NULL DEFAULT 'open',
+  `post_password` varchar(255) NOT NULL DEFAULT '',
+  `post_name` varchar(200) NOT NULL DEFAULT '',
+  `to_ping` text NOT NULL,
+  `pinged` text NOT NULL,
   `post_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `post_modified_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `post_content_filtered` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `post_parent` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `guid` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `menu_order` int(11) NOT NULL DEFAULT '0',
-  `post_type` varchar(20) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'post',
-  `post_mime_type` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `comment_count` bigint(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`),
-  KEY `post_name` (`post_name`(191)),
-  KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
-  KEY `post_parent` (`post_parent`),
-  KEY `post_author` (`post_author`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `post_content_filtered` longtext NOT NULL,
+  `post_parent` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `guid` varchar(255) NOT NULL DEFAULT '',
+  `menu_order` int(11) NOT NULL DEFAULT 0,
+  `post_type` varchar(20) NOT NULL DEFAULT 'post',
+  `post_mime_type` varchar(100) NOT NULL DEFAULT '',
+  `comment_count` bigint(20) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631posts`
+-- Dumping data for table `wp_v631posts`
 --
 
 INSERT INTO `wp_v631posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
@@ -421,44 +395,38 @@ INSERT INTO `wp_v631posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `
 (25, 1, '2023-10-09 14:28:50', '2023-10-09 14:28:50', '', '96fdcd65ef075b128f36c289a62723db_tn', '', 'inherit', 'open', 'closed', '', '96fdcd65ef075b128f36c289a62723db_tn', '', '', '2023-10-09 14:28:50', '2023-10-09 14:28:50', '', 24, 'http://localhost:82/NhomG_WP_CMS_2023/wp-content/uploads/2023/10/96fdcd65ef075b128f36c289a62723db_tn.jpg', 0, 'attachment', 'image/jpeg', 0);
 INSERT INTO `wp_v631posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
 (26, 1, '2023-10-09 14:29:15', '2023-10-09 14:29:15', '<!-- wp:paragraph -->\n<p><strong>Apple đã khiến giới công nghệ bất ngờ với những cải tiến mới trên chiếc iPhone 15 Pro Max, siêu phẩm ra mắt lúc 10h sáng ngày 12/9/2023 theo giờ Mỹ (tức 0h ngày 13/9/2023 theo giờ Việt Nam). Bài viết dưới đây sẽ giúp bạn&nbsp;<em>review iPhone 15 Pro Max</em>&nbsp;chi tiết nhất những ưu điểm về thiết kế, camera, màn hình… cùng những đặc điểm cần cải tiến. Tham khảo ngay bạn nhé!</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167289} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/review-iphone-15-pro-max.jpg\" alt=\"Review chi tiết iPhone 15 Pro Max trong bài viết này \" class=\"wp-image-167289\"/><figcaption class=\"wp-element-caption\">Đánh giá chi tiết từ A đến Z về iPhone 15 Pro Max</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">1. Review iPhone 15 Pro Max qua 3 đặc điểm về thiết kế</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Về thiết kế,&nbsp;<a href=\"https://viettelstore.vn/dien-thoai/iphone-15-pro-max-pid317067.html\" target=\"_blank\" rel=\"noreferrer noopener\">mẫu iPhone 15 Pro Max 2023</a>&nbsp;gây ấn tượng với chất liệu khung viền titan, viền màn hình siêu mỏng và xuất hiện thêm 4 màu mới toanh, cụ thể:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">1.1. Chất liệu khung viền: Khung titan bền bỉ</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Theo như công bố của Apple, chất liệu khung viền&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/khung-vien-iphone-15-pro-max\" target=\"_blank\" rel=\"noreferrer noopener\">titan</a>&nbsp;hạng 5 (Grade 5 Titanium) được sử dụng thay thế cho thép không gỉ ở phiên bản iPhone 14 Pro Max tiền nhiệm. So sánh với thép không gỉ, chất liệu titan kết hợp với substructure nhôm bằng công nghệ Solid State Diffusion giúp các phân tử nhôm - titan liên kết chặt chẽ với nhau.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":170774} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/review-iphone-15-pro-max-1-1.jpg\" alt=\"Khung viền iPhone 15 Pro Max bo cong hơn iPhone 14 Pro Max\" class=\"wp-image-170774\"/><figcaption class=\"wp-element-caption\">Khung viền được bo tròn hơn so với phiên bản tiền nhiệm</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Bề mặt titan sử dụng công nghệ mạ PVD bay hơi lắng đọng trong môi trường chân không thường sử dụng trên các dòng đồng hồ cao cấp hoặc các thiết bị thực hiện nhiệm vụ khám phá bề mặt sao Hỏa, giúp viền smartphone bền màu theo thời gian, thân thiện với môi trường, ít bám vân tay, sáng bóng, chịu lực tương đương nhưng có độ bền vượt trội.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Việc sử dụng khung viền titan có thể&nbsp;<strong>giảm bớt&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-nang-bao-nhieu\" target=\"_blank\" rel=\"noreferrer noopener\">trọng lượng</a></strong>&nbsp;thiết bị - điều chất liệu thép không gỉ không làm được, giúp người dùng&nbsp;<strong>cầm nắm dễ dàng, thoải mái</strong>&nbsp;hơn (từ 240gr ở bản tiền nhiệm giảm còn 221gr). Đồng thời, khung viền titan kết hợp màn hình cong, bo góc còn&nbsp;<strong>tiết kiệm diện tích</strong>, lớp finish matte (không bóng như phiên bản 14 Pro Max)&nbsp;<strong>tăng vẻ sang trọng</strong>&nbsp;cho sản phẩm.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167290} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/iphone-15-pro-titanium-blue-3-1.jpg\" alt=\"Thiết kế khung viền bo cong, sang trọng và rất bền bỉ trên iPhone 15 Pro Max\" class=\"wp-image-167290\"/><figcaption class=\"wp-element-caption\">Khung tian bền bỉ, sang trọng trên iPhone 15 Pro Max</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Cả hai phiên bản iPhone 15 cao cấp đều được hoàn thiện bằng khung Titan cấp độ 5 cứng cáp. Liệu iPhone 15 Pro khác gì iPhone 15 Pro Max, tìm hiểu ngay sự khác biệt này trong bài viết&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-pro-va-iphone-15-pro-max\">so sánh iPhone 15 Pro và iPhone 15 Pro Max</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">1.2. Thiết kế viền: Mỏng nhẹ - Tựa tràn viền</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Năm nay, Apple chính thức ra mắt phiên bản iPhone 15 Pro Max với thiết kế viền màn hình mỏng nhất trong các sản phẩm iPhone đã ra mắt. Kết hợp với&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-bao-nhieu-inch\" target=\"_blank\" rel=\"noreferrer noopener\">kích thước</a>&nbsp;màn hình lớn tới 6,7 inch, cải tiến này mang tới cảm giác màn hình tựa tràn viền, nâng cấp trải nghiệm xem phim, chơi game của người dùng, đồng thời giúp diện mạo iPhone 15 Pro Max thêm sang trọng và đẳng cấp.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167293} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/iphone-15-pro-max-mat-truoc.jpg\" alt=\"Nhìn từ mặt trước cho thấy viền màn hình iPhone 15 Pro Max siêu mỏng \" class=\"wp-image-167293\"/><figcaption class=\"wp-element-caption\">Thiết kế màn hình viền siêu mỏng - tựa tràn viền</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Thiết kế màn siêu mỏng sẽ xuất hiện trên bản iPhone 15 tiêu chuẩn. Nếu bạn đang phân vân chưa biết \"xuống tiền\" cho phiên bản tiêu chuẩn hay phiên bản iPhone 15 cao cấp,&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-va-iphone-15-pro\" target=\"_blank\" rel=\"noreferrer noopener\">iPhone 15 và iPhone 15 Pro</a>&nbsp;tương đồng về kích thước màn hình thì điểm khác biệt nằm ở đâu, bạn có thể tham khảo thêm bài viết&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-va-15-pro-max\" target=\"_blank\" rel=\"noreferrer noopener\">iPhone 15 khác gì 15 Pro Max</a>&nbsp;để hiểu rõ hơn về điểm mạnh của từng sản phẩm.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">1.3. Bảng màu: Xuất hiện 4 màu sắc độc đáo - 2 màu mới</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Mỗi năm Apple sẽ cho ra mắt màu mới đặc trưng cho phiên bản Pro Max, năm ngoái iPhone 14 Pro Max gây sốt với màu Tím Đậm (Deep Purple) huyền bí, năm nay iPhone 15 Pro Max tạo bất ngờ với 2 màu mới, gồm&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-pro-max-mau-xanh\" target=\"_blank\" rel=\"noreferrer noopener\">Titan Xanh</a>&nbsp;(Blue Titanium) và Titan Tự Nhiên (Natural Titanium) và 2 màu có sắc độ gần tương tự màu trên phiên bản tiền nhiệm là Titan Đen (Black Titanium), Titan Trắng (White Titanium). Trong đó:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul><!-- wp:list-item -->\n<li><strong>Titan Xanh (Blue Titanium)&nbsp;</strong>là gam màu xanh xám, phù hợp với người dùng muốn thể hiện sự trầm ổn, mạnh mẽ, quyền lực. Với phím nguồn nổi mang màu sắc đồng màu, khung viền nhám, siêu phẩm cao cấp nhất nhà Apple như một khối đồng màu - đồng thiết kế. Đây chắc chắn sẽ là siêu phẩm dự kiến cháy hàng trong thời gian tới.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong><a href=\"https://viettelstore.vn/tin-tuc/iphone-15-pro-den\" target=\"_blank\" rel=\"noreferrer noopener\">Titan Đen (Black Titanium)</a></strong>&nbsp;quyền lực mang đến vẻ ngoài tinh tế cho siêu phẩm iPhone 15 Pro Max và phù hợp với người dùng muốn thể hiện cá tính độc lập, độc đáo nhưng không quá nổi bật.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>Titan Trắng (White Titanium)</strong>&nbsp;là gam màu trắng tinh khôi phối cùng sắc Titanium sang trọng, mang đến vẻ đẹp cuốn hút, khó cưỡng.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong><a href=\"https://viettelstore.vn/tin-tuc/iphone-15-pro-max-mau-xam\" target=\"_blank\" rel=\"noreferrer noopener\">Tự Nhiên (Natural Titanium)</a></strong>&nbsp;là gam màu mới toanh, lần đầu xuất hiện và nhận được sự yêu thích của đông đảo iFans. Nhiều chuyên gia dự đoán phiên bản này sẽ “kế thừa” độ hot của iPhone 14 Pro Max màu tím năm ngoái. Được biết màu sắc này có khả năng thay đổi sắc độ tùy theo góc nhìn và cường độ ánh sáng, tạo nên cảm giác ma mị, hấp dẫn khó cưỡng.</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:image {\"id\":167295} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/bang-mau-iphone-15-pro-va-iphone-15-pro-max.jpg\" alt=\"4 gam màu của iPhone 15 Pro Max\" class=\"wp-image-167295\"/><figcaption class=\"wp-element-caption\">4 màu xuất hiện trên iPhone 15 Pro Max bao gồm: Titan Xanh (Blue Titanium) , Titan Đen (Black Titanium), Titan Trắng (White Titanium), Tự Nhiên (Natural Titanium)</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">2. Review iPhone 15 Pro Max qua 4 đặc điểm về camera</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Cải tiến gây bất ngờ, mang tính đột phá nhất trên iPhone 15 Pro Max năm nay chính là thiết kế camera. Apple đã mạnh tay trang bị ống kính tiềm vọng&nbsp;<strong>zoom quang học 5x</strong>, khả năng&nbsp;<strong>quay video 4K</strong>, và c<strong>ảm biến hình ảnh sống động</strong>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">2.1. Cụm camera sau: Giữ nguyên thiết kế tiền nhiệm</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>iPhone 15 Pro Max được giữ nguyên thiết kế cụm 3&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-camera\" target=\"_blank\" rel=\"noreferrer noopener\">camera</a>&nbsp;sau tương tự iPhone 14 Pro Max. Cụm 3 camera vẫn được bố trí gọn gàng trong ô vuông nhỏ ở góc trên bên trái mặt lưng thiết bị. Mặt khác, vì được trang bị ống kính tiềm vọng, cảm biến hình ảnh nên cụm camera sau của iPhone 15 Pro Max vẫn lồi ra so với mặt lưng thiết bị. Do đó, bạn nên dùng thêm ốp lưng để tránh ống kính camera tiếp xúc trực tiếp với bề mặt khi đặt smartphone gây trầy xước.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167299} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/camera-iphone-15-pro.jpg\" alt=\"iPhone 15 Pro Max vẫn được trang bị cụm 3 camera\" class=\"wp-image-167299\"/><figcaption class=\"wp-element-caption\">Cụm 3 camera vẫn được giữ nguyên trên iPhone 15 Pro Max</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">2.2. Cảm biến hình ảnh: Chất lượng hình ảnh sống động</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Độ phân giải&nbsp;<strong>camera 48MP&nbsp;</strong>từ iPhone 14 Pro Max được giữ nguyên cho iPhone 15 Pro Max, tuy nhiên kích thước cảm biến lớn hơn. Điều này giúp bức ảnh thu được có mật độ điểm ảnh cao, hình ảnh sắc nét tới từng chi tiết, khắc phục được tình trạng ảnh mờ nhòe khi chụp góc rộng với camera có độ phân giải thấp. Độ tương phản màu sắc của ảnh được cải thiện, không sai biệt về màu sắc thực tế so với ảnh, đặc biệt khi chụp ban đêm hay trong điều kiện thiếu sáng.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167302} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/hinh-anh-duoc-camera-iphone-15-pro-max-chup.jpg\" alt=\"Nhờ cảm biến hình ảnh, camera iPhone 15 Pro Max cho ra hình ảnh sắc nét dù trong điều kiện thiếu sáng \" class=\"wp-image-167302\"/><figcaption class=\"wp-element-caption\">Cảm biến hình ảnh giúp các bức ảnh chụp tối rõ ràng và đủ sáng hơn</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Cảm biến hình ảnh thế hệ thứ hai này có khả năng thu sáng và điều chỉnh độ tương phản màu sắc tốt hơn, ảnh chụp có nhiều màu sắc, rõ nét và cải thiện tình trạng thừa/ thiếu sáng khi chụp ban đêm. Nhờ đó, bức ảnh chụp tối rõ nét từng chi tiết, cảnh vật, phân tán ánh sáng vừa phải, không có những góc hình quá tối hay quá chói.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167303} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/hinh-anh-duoc-camera-iphone-15-pro-max-chup-1.jpg\" alt=\"Bức ảnh được chụp từ camera iPhone 15 Pro Max rõ nét đến từng chi tiết\" class=\"wp-image-167303\"/><figcaption class=\"wp-element-caption\">Bức ảnh rõ nét đến từng chi tiết dù được chụp trong môi trường tối</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">2.3. Ống kính tiềm vọng: Zoom quang học 5x</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Apple vốn khá “lép vế” so với một số smartphone chạy Android khác như Samsung về khả năng chụp xa và zoom ảnh 10x, 20x…. Điều này được cải thiện với ống kính tiềm vọng trên camera iPhone 15 Pro Max được nâng cấp với khả năng<strong>&nbsp;zoom 5x</strong>,&nbsp;<strong>zoom Pro đến 120mm</strong>, có&nbsp;<strong>cảm biến lớn hơn 25%</strong>,&nbsp;<strong>100% Focus Pixels</strong>&nbsp;và&nbsp;<strong>khẩu độ ƒ/2.8</strong>, lớn nhất so với bất kỳ điện thoại thông minh nào ở phạm vi quang học này, lớn hơn so với 3x của phiên bản tiền nhiệm.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167304} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/hinh-anh-duoc-camera-iphone-15-pro-max-chup-3.jpg\" alt=\"Hình ảnh được zoom 5x nhưng vẫn sắc nét \" class=\"wp-image-167304\"/><figcaption class=\"wp-element-caption\">Hình ảnh zoom 5x vẫn giữ được chất lượng tốt, không bị vỡ ảnh, mờ nhòe</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Giờ đây người dùng có thể chụp ảnh ở khoảng cách xa hơn, phóng to ảnh nhưng vẫn giữ được chất lượng tốt, độ phân giải cao, không bị mờ, nhòe. Đồng thời, nâng cấp này cũng giúp tăng chất lượng của bức ảnh chân dung với các chi tiết rõ ràng, sắc nét, các mảng màu tương phản hài hòa, phân bổ ánh sáng đều và hợp lý hơn.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167305} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/hinh-anh-duoc-camera-iphone-15-pro-max-chup-4.jpg\" alt=\"Minh chứng khi chụp góc rộng 0,5x - 13mm trên iPhone 15 Pro Max\" class=\"wp-image-167305\"/><figcaption class=\"wp-element-caption\">Chụp góc rộng 0,5x - 13mm trên iPhone 15 Pro Max</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">2.4. Khả năng quay video: Chất lượng video 4K sắc nét</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Cụm 3 camera sau phối hợp và hỗ trợ lẫn nhau mang tới khả năng quay video chất lượng 4K sắc nét cho iPhone 15 Pro Max. Cụ thể, cụm 3 camera gồm 1 camera chính 48MP, 1&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/tong-hop-cac-loai-camera-tren-dien-thoai-duoc-su-dung-pho-bien-nhat\" target=\"_blank\" rel=\"noreferrer noopener\">camera góc siêu rộng</a>&nbsp;và 1&nbsp;<a href=\"https://m.viettelstore.vn/tin-tuc/camera-tele-co-tac-dung-gi\" target=\"_blank\" rel=\"noreferrer noopener\">camera tele</a>&nbsp;với khả năng thu giữ hình ảnh sắc nét có độ phân giải cao ở nhiều góc chụp khác nhau, hỗ trợ quay video sắc nét chất lượng 4K hiệu quả.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Giờ đây, người dùng có thể sử dụng iPhone 15 Pro Max như một máy quay chuyên nghiệp, Apple cho phép người dùng kết hợp iPhone với bộ nhớ ngoài để có thể ghi hình với tốc độ cao tới 4K, tương tự như ghi hình ở phim trường. Đặc biệt, Apple còn hứa hẹn ra mắt khả năng quay video không gian tuyệt diệu, tích hợp xem ngay trên Apple Vision Pro, giúp bạn trải nghiệm rạp phim 3D ngay tại nhà.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167306} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/apple-vision-pro.jpg\" alt=\"iPhone 15 Pro Max tích hợp Apple Vision Pro giúp bạn trải nghiệm phim 3D tại nhà\" class=\"wp-image-167306\"/><figcaption class=\"wp-element-caption\">Tích hợp Apple Vision Pro giúp bạn trải nghiệm phim 3D tại nhà</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">3. Review iPhone 15 Pro Max qua 3 đặc điểm về màn hình</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Màn hinh iPhone 15 Pro Max có&nbsp;<strong>kích thước lớn</strong>, sử dụng&nbsp;<strong><a href=\"https://m.viettelstore.vn/tin-tuc/man-hinh-retina-la-gi-dang-cap-va-chi-danh-rieng-cho-thiet-bi-apple\" target=\"_blank\" rel=\"noreferrer noopener\">công nghệ Super Retina XDR</a>&nbsp;</strong>cùng&nbsp;<strong>độ phân giải cao</strong>, mang tới chất lượng hình ảnh hiển thị sắc nét, chân thực và sống động.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"linkDestination\":\"custom\"} -->\n<figure class=\"wp-block-image\"><a href=\"https://viettelstore.vn/apple/iphone-15\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/banner-iphone-151.gif\" alt=\"iPhone 15\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">3.1. Công nghệ màn hình: Super Retina XDR hiển thị chân thực</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>iPhone 15 Pro Max tiếp tục sử dụng công nghệ màn hình Super Retina XDR - nâng cấp của dải tương phản động cao (HDR) có hiệu quả hiển thị màu đen chân thực, màu trắng tinh khiết hơn, nhờ đó hình ảnh có chiều sâu, màu sắc sống động, tự nhiên.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":170777} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/review-iphone-15-pro-max-2.jpg\" alt=\"Màn hình iPhone 15 Pro Max trang bị công nghệ Super Retina XDR cho chất lượng hiển thị sống động\" class=\"wp-image-170777\"/><figcaption class=\"wp-element-caption\">Màn hình hiển thị sắc nét, màu sắc sống động</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Độ sáng màn hình từ 1000 - 2000 nits, cho phép người dùng sử dụng smartphone ngoài trời dễ dàng, không bị chói. Super Retina XDR được nâng cấp độ tương phản tới kết hợp với TrueTone mang tới hình ảnh đa dạng màu sắc, có chiều sâu và các khối nét được phân tách rõ ràng.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">3.2. Độ phân giải: Chất lượng hình ảnh rõ, mật độ điểm ảnh cao</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Màn hình iPhone 15 Pro Max với độ phân giải&nbsp;<strong>2796 x 1290 pixel</strong>, mang đến khả năng hiển thị hình ảnh sắc nét, chuyển động mượt mà, không bị mờ nhòe. Kết hợp với tần số quét màn hình&nbsp;<strong><a href=\"https://viettelstore.vn/tin-tuc/iphone-15-plus-man-hinh-bao-nhieu-hz\" target=\"_blank\" rel=\"noreferrer noopener\">120 Hz</a></strong>&nbsp;giúp hình ảnh hiển thị liền mạch, rõ ràng, hạn chế tình trạng lag, giật ở những tần số thấp hơn.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">3.3. Kích thước màn hình: Sang trọng - đầm tay</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Kích thước màn hình cũng được giữ nguyên từ phiên bản trước, ở mức 6,7 inch, đây là một trong hai màn hình lớn nhất trong các phiên bản thuộc iPhone 15 Series. Thiết kế màn hình lớn như vậy giúp tối đa trải nghiệm xem phim, chơi game, lướt web của người dùng. Ngoài ra, kích thước màn hình đầm tay này còn phù hợp với tệp khách hàng yêu thích những chiếc smartphone sang trọng, quyền lực.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167307} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/kich-thuoc-iphone-15-pro-max.jpg\" alt=\"Kích thước màn hình 6.7 inch trên iPhone 15 Pro Max tối ưu cho trải nghiệm xem phim, chơi game\" class=\"wp-image-167307\"/><figcaption class=\"wp-element-caption\">Kích thước màn hình lớn tối ưu trải nghiệm xem phim, chơi game</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">4. Review iPhone 15 Pro Max qua 4 đặc điểm về hiệu suất</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Bên cạnh camera, hiệu suất iPhone 15 Pro Max cũng được Apple “đầu tư” nâng cấp mạnh mẽ bằng việc cải tiến chipset, thay thế cổng sạc, tăng dung lượng pin và&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-bao-nhieu-gb\" target=\"_blank\" rel=\"noreferrer noopener\">dung lượng</a>&nbsp;RAM/ROM. Cụ thể như sau:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">4.1. Chipset: Hiệu năng vượt trội với chip A17 Pro</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Apple lần đầu tiên ứng dụng&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-dung-chip-gi\" target=\"_blank\" rel=\"noreferrer noopener\">chip</a>&nbsp;A17 Pro tiến trình 3nm trên thiết bị của hãng với iPhone 15 Pro Max. Theo thông tin do Apple cung cấp,&nbsp;<a href=\"https://m.viettelstore.vn/tin-tuc/thong-tin-ve-chip-a17-pro\" target=\"_blank\" rel=\"noreferrer noopener\">chip A17 Pro</a>&nbsp;giúp cải thiện hiệu năng thiết bị tới 10% và tiết kiệm điện năng so với chip A16 Bionic. Ngoài ra, chip A17 Pro còn có 19 tỷ bóng dẫn, nhiều hơn 3 tỷ bóng bán dẫn so với&nbsp;<a href=\"https://m.viettelstore.vn/tin-tuc/a16-bionic\" target=\"_blank\" rel=\"noreferrer noopener\">chip A16 Bionic</a>. Nhờ vậy, tốc độ xử lý và thời gian sử dụng pin của iPhone 15 Pro Max tăng đáng kể.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Bạn có thể tham khảo thêm thông tin về chip A17 Bionic trong bài viết&nbsp;<strong><a href=\"https://viettelstore.vn/tin-tuc/thong-tin-ve-chip-a17-pro\" target=\"_blank\" rel=\"noreferrer noopener\">Chip A17 Pro trên iPhone 15: Hiệu năng khủng - Tiết kiệm pin</a></strong>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167244} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/cpu-iphone-15-pro.jpg\" alt=\"iPhone 15 Pro Max được trang bị con chip A17 Pro 3nm\" class=\"wp-image-167244\"/><figcaption class=\"wp-element-caption\">iPhone 15 Pro Max có hiệu năng vượt trội với chip A17 Pro 3nm</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">4.2. Dung lượng pin lớn</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Hiện tại Apple chưa công bố dung lượng pin iPhone 15 Pro Max, tuy nhiên, các iFans kỳ vọng hãng sẽ nâng cấp lớn hoặc ít nhất giữ nguyên so với phiên bản tiền nhiệm (chúng tôi sẽ tiếp tục cập nhật thông tin đến bạn đọc).</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Mặc dù chưa công bố dung lượng chính thức nhưng Apple cho biết, iPhone 15 Pro Max có thể&nbsp;<strong>phát lại video tối đa 29 giờ liên tục</strong>, thời gian&nbsp;<strong>phát video trực tuyến tối đa 25 giờ</strong>, thời gian&nbsp;<strong>phát nhạc lên tới 95 giờ</strong>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Tham khảo thêm thông tin về dung lượng pin iPhone 15 Pro Max trong bài viết&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/dung-luong-pin-iphone-15-pro-max\" target=\"_blank\" rel=\"noreferrer noopener\"><strong>Dung lượng pin iPhone 15 Pro Max bao nhiêu? Chạm mốc 4.852 mAh</strong></a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">4.3. Cổng sạc: Thay thế cổng USB-C</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Cổng sạc Lightning vốn là đặc trưng của Apple đã được thay thế bằng&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-doi-cong-sac\" target=\"_blank\" rel=\"noreferrer noopener\">cổng sạc USB-C</a>&nbsp;trên iPhone 15 Series. Với thay đổi này, người dùng có thể&nbsp;<strong>sạc và trao đổi dữ liệu trên iPhone với nhiều thiết bị khác</strong>, bao gồm các thiết bị không thuộc Apple chỉ với 1 cáp sạc, tiện lợi hơn nhiều so với trước đây.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167308} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/iphone-15-pro-usb-c.jpg\" alt=\"Cổng USB-C trên iPhone 15 Pro Max\" class=\"wp-image-167308\"/><figcaption class=\"wp-element-caption\">Cổng sạc USB-C tiện lợi hơn so với cổng sạc Lightning truyền thống</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Đồng thời, iPhone 15 Pro Max còn được trang bị&nbsp;<strong>sạc nhanh 20W</strong>&nbsp;giúp tốc độ sạc nhanh hơn,&nbsp;<strong>đạt 50% pin trong chưa tới 30 phút</strong>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Tham khảo thêm tại bài viết:&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-doi-cong-sac\" target=\"_blank\" rel=\"noreferrer noopener\"><strong>iPhone 15 đổi cổng sạc - Bước đột phá mới với USB-C</strong></a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">4.4. Dung lượng RAM/ROM lớn</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Về dung lượng bộ nhớ, iPhone 15 Pro Max tiếp tục được trang bị dung lượng RAM lớn, ROM từ 25G6GB - 1TB. Điều này cho phép người dùng lưu trữ được lượng dữ liệu lớn trên iPhone, đặc biệt với những người thường xuyên chụp ảnh, quay video và chỉnh sửa trực tiếp trên smartphone. Ngoài ra, dung lượng RAM lớn (nhiều nguồn tin khẳng định mức RAM 8GB) cho phép bạn chơi những tựa game mobile nặng mà không lo bị giật, lag, đồng thời, khả năng xử lý chạy đa nhiệm trên iPhone 15 Pro Max cũng được cải thiện.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">5. Review iPhone 15 Pro Max qua 2 đặc điểm khác</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Bên cạnh những đặc điểm kể trên, iPhone 15 Pro Max còn được cải thiện về chip 5G và hệ điều hành, cụ thể như sau:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">5.1. Thân thiện với môi trường hơn</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Tiếp nối nỗ lực tạo ra sản phẩm trung tính carbon trên toàn bộ chuỗi cung ứng, iPhone 15 Pro Max cũng không ngoại lệ khi lần đầu tiên sử dụng cấu trúc khung nhôm tái chế 100% và coban tái chế 100% trong pin. Phiên bản này sở hữu 100% nguyên tố đất hiếm được tái chế trong tất cả các nam châm và 100% vàng tái chế trong đầu nối USB-C cũng như lớp mạ vàng và hàn thiếc trong nhiều bảng mạch in. Đồng thời vỏ hộp cũng được làm từ 99% chất xơ, đưa Apple đến gần hơn với mục tiêu loại bỏ hoàn toàn nhựa khỏi bao bì vào năm 2025.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":170781} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/review-iphone-15-pro-max-3.jpg\" alt=\"Vỏ hộp iPhone 15 Pro Max được làm từ 99% chất xơ, thân thiện với môi trường\" class=\"wp-image-170781\"/><figcaption class=\"wp-element-caption\">Apple sử dụng vỏ hộp làm từ 99% chất xơ, thân thiện với môi trường (Nguồn: Youtuber Marques Brownlee)</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">5.2. Hệ điều hành iOS 17: Nhiều tính năng mới toanh</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Hệ điều hành&nbsp;<a href=\"https://m.viettelstore.vn/tin-tuc/ios-17-co-gi-moi\" target=\"_blank\" rel=\"noreferrer noopener\">iOS 17</a>&nbsp;cũng được Apple ứng dụng lần đầu tiên trên iPhone 15 Pro Max. iOS 17 được thiết kế phù hợp với cấu hình iPhone 15 Pro Max, bổ sung thêm nhiều tính năng mới cho thiết bị như StandBy trên tin nhắn, Facetime, thư thoại, cho phép thay đổi hình đại diện cuộc gọi, cải thiện bàn phím và đọc chính tả…</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167311} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/ios-17-iphone-15-pro-max.jpg\" alt=\"iOS 17 được tích hợp trên iPhone 15 Pro Max\" class=\"wp-image-167311\"/><figcaption class=\"wp-element-caption\">iPhone 15 Pro Max là một trong những sản phẩm đầu tiên được tích hợp iOS 17</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">6. iPhone 15 Pro Max có nhược điểm gì?</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>iPhone 15 Pro Max là bước đột phá của Apple về cả thiết kế và hiệu năng, gây ấn tượng mạnh mẽ với phần lớn người dùng. Tuy nhiên, một số người dùng vẫn không hài lòng vì mức giá cao, camera sau có độ lồi lớn và&nbsp;<a href=\"https://viettelstore.vn/tin-tuc/iphone-15-dynamic-island\" target=\"_blank\" rel=\"noreferrer noopener\">Dynamic Island</a>&nbsp;chưa thực sự ấn tượng.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">6.1. Giá thành sản phẩm cao</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Mức giá iPhone 15 Pro Max được công bố dao động từ 1199 USD (khoảng 29 triệu VND) cho bản 256GB; 1399 USD (khoảng 34 triệu VNĐ) cho bản 512GB và 1599 USD (khoảng 39 triệu VNĐ) cho bản 1TB. Mức giá của tất cả các phiên bản iPhone 15 Pro Max đều bằng với mức giá iPhone 14 Pro Max tương ứng khi mới ra mắt. Tuy nhiên, iPhone 15 Pro Max có nhiều nâng cấp vượt trội hơn, do đó nhiều người dùng sẵn sàng bỏ ra số tiền lớn để sở hữu chiếc smartphone này.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167312} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/bang-gia-iphone-15-series-1024x459.jpg\" alt=\"Giá bán dự kiến của iPhone 15 Series\" class=\"wp-image-167312\"/><figcaption class=\"wp-element-caption\">Giá iPhone 15 Pro Max và các sản phẩm trong iPhone 15 Series dự kiến tại Viettel Store</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">6.2. Vẫn giữ thiết kế cụm camera sau lồi</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Vì cụm camera lồi nên khi không sử dụng ốp lưng, ống kính camera dễ bị trầy xước khi đặt smartphone trên bề mặt gồ ghề. Đây là điều rất nhiều người dùng không hài lòng với cụm camera lồi của iPhone từ những phiên bản trước. Thế nhưng, cụm camera của iPhone 15 Pro Max mới ra mắt vẫn được thiết kế lồi, điều này khiến nhiều người dùng quan ngại.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"id\":167313} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/iphone-15-pro-max-blue-1-1024x768.jpg\" alt=\"Cụm camera lồi trên iPhone 15 Pro Max\" class=\"wp-image-167313\"/><figcaption class=\"wp-element-caption\">Cụm camera lồi gần như trở thành thương hiệu của Series Pro</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Có thể thấy, Apple chưa tìm ra cách tối ưu để khắc phục nhược điểm này, người dùng cần chờ đợi sự cải thiện ở những lần ra mắt tiếp theo. Bù lại, cụm camera lồi ở phiên bản mới ra mắt có thêm nhiều nâng cấp “đắt giá” như ống kính tiềm vọng zoom 5x, zoom kỹ thuật số lên tới 25x, cảm biến hình ảnh 48MP, cảm biến LiDAR, cảm biến 3D và tự động lấy nét…</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3 class=\"wp-block-heading\">6.3. Dynamic Island chưa phát huy hết công dụng</h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Dynamic Island trên iPhone 15 Pro Max có thể kết hợp với các tính năng khác như cuộc gọi, nghe nhạc, chỉ đường, Face ID, máy ảnh, hẹn giờ, AirDrop… mang lại nhiều trải nghiệm mới lạ, thú vị. Tuy nhiên, điều Dynamic Island chưa chinh phục được người dùng chính là thiết kế còn chiếm diện tích màn hình, dễ bám vân tay vào phần camera trước và các thành phần bị tách biệt khi chiếu sáng. iFans vẫn cần chờ đợi Apple cải thiện thêm trong tương lai.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">7. Tổng kết: Có nên mua iPhone 15 Pro Max không?</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>So với phiên bản tiền nhiệm và các dòng máy khác cùng Series, iPhone 15 Pro Max sở hữu nhiều “cái nhất” về kích thước viền màn hinh, camera zoom tiềm vọng, chip A17 Bionic và hệ điều hành iOS 17. Những điều này cho thấy đây là chiếc smartphone đáng giá để “xuống tiền” trong năm 2023. Ngoài ra, Viettel Store sẽ mách bạn những tệp khách hàng phù hợp với sản phẩm “đắt xắt ra miếng” này:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul><!-- wp:list-item -->\n<li><strong>Có điều kiện tài chính tốt:&nbsp;</strong>iPhone 15 Pro Max có mức giá cao nhất trong Series nên sẽ phù hợp với người dùng có điều kiện tài chính dư dả, thoải mái, muốn sở hữu chiếc smartphone cao cấp với nhiều tính năng vượt trội.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>Muốn trải nghiệm các tính năng mới nhất trên iPhone</strong>: Người dùng bị thu hút và muốn trải nghiệm những công nghệ và nâng cấp mới trên iPhone 15 Pro Max như camera chính 48MP, chụp ảnh với ống kính tiềm vọng zoom 5x, viền màn hình siêu mỏng, chip A17 Bionic…</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>Muốn sở hữu chiếc iPhone Pro Max màu mới</strong>: Người dùng muốn nâng cấp iPhone 14 Pro Max lên iPhone 15 Pro Max với một trong các màu sắc độc đáo gồm Titan Đen (Black Titanium), Titan Trắng (White Titanium), Titan Xanh (Blue Titanium) và Titan Tự Nhiên (Natural Titanium) nên mua chiếc smartphone này. Đây là 4 màu sắc đặc biệt dành riêng cho phiên bản ra mắt năm 2023 của nhà Táo.</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:image {\"id\":167314} -->\n<figure class=\"wp-block-image\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/iphone-15-pro.jpg\" alt=\"Nhờ những nâng cấp đi kèm, iPhone 15 Pro Max là một lựa chọn đáng tiền trong năm 2023 \" class=\"wp-image-167314\"/><figcaption class=\"wp-element-caption\">iPhone 15 Pro Max với nhiều cải tiến đắt giá, xứng đáng để bạn “xuống tiền” trong năm 2023</figcaption></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Trên đây là nội dung&nbsp;<strong>review iPhone 15 Pro Max</strong>&nbsp;chi tiết về thiết kế, cấu hình, camera, màn hình và hiệu suất. Apple đã trang bị những gì tốt nhất của hãng cho chiếc smartphone này, xứng đáng là chiếc smartphone “xịn sò” nhất của hãng tính đến thời điểm hiện tại. Nếu bạn muốn là một trong những người dùng đầu tiên sở hữu iPhone 15 Pro Max, hãy đến cửa hàng Viettel Store gần nhất hoặc để lại bình luận phía dưới nhận thông tin về sản phẩm nhé!</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"linkDestination\":\"custom\"} -->\n<figure class=\"wp-block-image\"><a href=\"https://viettelstore.vn/dien-thoai/iphone-15-pro-max-pid317067.html\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"https://news.khangz.com/wp-content/uploads/2023/09/banner-iphone-15-pro-max1.gif\" alt=\"iPhone 15 Pro Max\"/></a></figure>\n<!-- /wp:image -->\n\n<!-- wp:group {\"align\":\"full\",\"style\":{\"spacing\":{\"padding\":{\"right\":\"var:preset|spacing|50\",\"bottom\":\"var:preset|spacing|60\",\"left\":\"var:preset|spacing|50\",\"top\":\"var:preset|spacing|60\"},\"blockGap\":\"var:preset|spacing|40\",\"margin\":{\"top\":\"0\",\"bottom\":\"0\"}},\"dimensions\":{\"minHeight\":\"40vh\"}},\"textColor\":\"contrast\",\"layout\":{\"type\":\"flex\",\"orientation\":\"vertical\",\"justifyContent\":\"center\",\"verticalAlignment\":\"center\"}} -->\n<div class=\"wp-block-group alignfull has-contrast-color has-text-color\" style=\"min-height:40vh;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--50)\"><!-- wp:paragraph {\"align\":\"center\",\"fontSize\":\"medium\"} -->\n<p class=\"has-text-align-center has-medium-font-size\">post by tri</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:site-logo {\"shouldSyncIcon\":true,\"align\":\"center\",\"style\":{\"spacing\":{\"margin\":{\"bottom\":\"6px\"}}}} /-->\n\n<!-- wp:social-links {\"size\":\"has-normal-icon-size\",\"style\":{\"spacing\":{\"blockGap\":{\"top\":\"12px\",\"left\":\"12px\"}}},\"className\":\"is-style-logos-only\",\"layout\":{\"type\":\"flex\",\"flexWrap\":\"nowrap\"}} -->\n<ul class=\"wp-block-social-links has-normal-icon-size is-style-logos-only\"><!-- wp:social-link {\"url\":\"#\",\"service\":\"facebook\"} /-->\n\n<!-- wp:social-link {\"url\":\"#\",\"service\":\"twitter\"} /-->\n\n<!-- wp:social-link {\"url\":\"#\",\"service\":\"wordpress\"} /--></ul>\n<!-- /wp:social-links --></div>\n<!-- /wp:group -->', 'Review iPhone 15 Pro Max: Phiên bản đáng “xuống tiền” nhất 2023', '', 'inherit', 'closed', 'closed', '', '24-revision-v1', '', '', '2023-10-09 14:29:15', '2023-10-09 14:29:15', '', 24, 'http://localhost:82/NhomG_WP_CMS_2023/?p=26', 0, 'revision', '', 0),
-(27, 1, '2023-10-09 14:30:22', '2023-10-09 14:30:22', '{\n    \"twentytwentyone::custom_logo\": {\n        \"value\": \"\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2023-10-09 14:30:22\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'aaf3b92d-bf25-4cd2-a79a-b24f13ca7155', '', '', '2023-10-09 14:30:22', '2023-10-09 14:30:22', '', 0, 'http://localhost:82/NhomG_WP_CMS_2023/2023/10/09/aaf3b92d-bf25-4cd2-a79a-b24f13ca7155/', 0, 'customize_changeset', '', 0);
+(27, 1, '2023-10-09 14:30:22', '2023-10-09 14:30:22', '{\n    \"twentytwentyone::custom_logo\": {\n        \"value\": \"\",\n        \"type\": \"theme_mod\",\n        \"user_id\": 1,\n        \"date_modified_gmt\": \"2023-10-09 14:30:22\"\n    }\n}', '', '', 'trash', 'closed', 'closed', '', 'aaf3b92d-bf25-4cd2-a79a-b24f13ca7155', '', '', '2023-10-09 14:30:22', '2023-10-09 14:30:22', '', 0, 'http://localhost:82/NhomG_WP_CMS_2023/2023/10/09/aaf3b92d-bf25-4cd2-a79a-b24f13ca7155/', 0, 'customize_changeset', '', 0),
+(28, 2, '2023-10-10 04:37:53', '2023-10-10 04:37:53', '<!-- wp:paragraph -->\n<p>NDO -&nbsp;Văn phòng Thủ tướng Israel Benjamin Netanyahu thông báo, ngày 8/10, Nội các An ninh Israel chính thức tuyên bố nước này “đang trong tình trạng chiến tranh sau cuộc tấn công thảm khốc của Hamas tại miền nam&nbsp;<a href=\"https://nhandan.vn/hoi-dong-bao-an-lien-hop-quoc-hop-khan-ve-tinh-hinh-israel-post776470.html\" target=\"_blank\" rel=\"noreferrer noopener\">Israel</a>\".</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Chủ nhật, ngày 08/10/2023 - 21:54</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"mailto:email@domain.com?subject=Israel%20tuy%C3%AAn%20b%E1%BB%91%20t%C3%ACnh%20tr%E1%BA%A1ng%20chi%E1%BA%BFn%20tranh%20sau%20khi%20x%E1%BA%A3y%20ra%20xung%20%C4%91%E1%BB%99t%20v%E1%BB%9Bi%20phong%20tr&amp;body=https%3A%2F%2Fnhandan.vn%2Fisrael-tuyen-bo-tinh-trang-chien-tranh-post776536.html\"></a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>0:00/0:00</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>0:00</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Nam miền Bắc</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><tbody><tr><td><img src=\"https://image.nhandan.vn/w800/Uploaded/2023/ovhunoh/2023_10_08/israel-6586.jpg.webp\" alt=\"Lực lượng an ninh Israel làm nhiệm vụ gần khu vực Sderot ở miền nam nước này, ngày 8/10/2023. (Ảnh: Reuters)\"></td></tr><tr><td>Lực lượng an ninh Israel làm nhiệm vụ gần khu vực Sderot ở miền nam nước này, ngày 8/10/2023. (Ảnh: Reuters)</td></tr></tbody></table></figure>\n<!-- /wp:table -->\n\n<!-- wp:paragraph -->\n<p>Trước đó, phát biểu tại cuộc họp khẩn Nội các An ninh ngày 7/10, Thủ tướng Netanyahu tuyên bố Israel đang trong tình trạng \"chiến tranh\", đồng thời cam kết kẻ địch sẽ phải “trả giá”.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rạng sáng cùng ngày, phong trào Hồi giáo Hamas ở Dải Gaza đã bắn hàng nghìn quả rocket vào&nbsp;<a href=\"https://nhandan.vn/israel-tag7032.html\">Israel</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Cập nhật số thương vong trong ngày thứ 2 xảy ra xung đột giữa Israel và phong trào&nbsp;<a href=\"https://nhandan.vn/hamas-tag33167.html\">Hamas</a>, Văn phòng Báo chí của chính quyền Israel cho biết, số người thiệt mạng tại nước này đã tăng lên hơn 600 người. Hơn 100 người Israel bị Hamas bắt giữ. Kênh truyền hình nhà nước Kan TV (Israel) dẫn thông tin của Bộ Y tế nước này cho biết có hơn 2.000 người bị thương.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Trong khi đó, Bộ Y tế tại&nbsp;<a href=\"https://nhandan.vn/au-keu-goi-cac-ben-cham-dut-xung-dot-tai-dai-gaza-post776531.html\" target=\"_blank\" rel=\"noreferrer noopener\">Dải Gaza</a>&nbsp;cho biết, số người thiệt mạng tại đây tăng lên 313 người, trong đó có 20 trẻ em, và 1.990 người bị thương.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Theo Cơ quan Cứu trợ và Việc làm cho người tị nạn Palestine của Liên hợp quốc (UNRWA), ít nhất 20.000 người Palestine từ nhiều tỉnh của Dải Gaza đã phải dời đến các trường học thuộc cơ quan này.</p>\n<!-- /wp:paragraph -->', 'Israel tuyên bố tình trạng chiến tranh', '', 'publish', 'open', 'open', '', 'israel-tuyen-bo-tinh-trang-chien-tranh', '', '', '2023-10-10 04:37:53', '2023-10-10 04:37:53', '', 0, 'http://localhost:82/NhomG_WP_CMS_2023/?p=28', 0, 'post', '', 0),
+(29, 2, '2023-10-10 04:37:53', '2023-10-10 04:37:53', '<!-- wp:paragraph -->\n<p>NDO -&nbsp;Văn phòng Thủ tướng Israel Benjamin Netanyahu thông báo, ngày 8/10, Nội các An ninh Israel chính thức tuyên bố nước này “đang trong tình trạng chiến tranh sau cuộc tấn công thảm khốc của Hamas tại miền nam&nbsp;<a href=\"https://nhandan.vn/hoi-dong-bao-an-lien-hop-quoc-hop-khan-ve-tinh-hinh-israel-post776470.html\" target=\"_blank\" rel=\"noreferrer noopener\">Israel</a>\".</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Chủ nhật, ngày 08/10/2023 - 21:54</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"mailto:email@domain.com?subject=Israel%20tuy%C3%AAn%20b%E1%BB%91%20t%C3%ACnh%20tr%E1%BA%A1ng%20chi%E1%BA%BFn%20tranh%20sau%20khi%20x%E1%BA%A3y%20ra%20xung%20%C4%91%E1%BB%99t%20v%E1%BB%9Bi%20phong%20tr&amp;body=https%3A%2F%2Fnhandan.vn%2Fisrael-tuyen-bo-tinh-trang-chien-tranh-post776536.html\"></a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>0:00/0:00</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>0:00</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Nam miền Bắc</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:table -->\n<figure class=\"wp-block-table\"><table><tbody><tr><td><img src=\"https://image.nhandan.vn/w800/Uploaded/2023/ovhunoh/2023_10_08/israel-6586.jpg.webp\" alt=\"Lực lượng an ninh Israel làm nhiệm vụ gần khu vực Sderot ở miền nam nước này, ngày 8/10/2023. (Ảnh: Reuters)\"></td></tr><tr><td>Lực lượng an ninh Israel làm nhiệm vụ gần khu vực Sderot ở miền nam nước này, ngày 8/10/2023. (Ảnh: Reuters)</td></tr></tbody></table></figure>\n<!-- /wp:table -->\n\n<!-- wp:paragraph -->\n<p>Trước đó, phát biểu tại cuộc họp khẩn Nội các An ninh ngày 7/10, Thủ tướng Netanyahu tuyên bố Israel đang trong tình trạng \"chiến tranh\", đồng thời cam kết kẻ địch sẽ phải “trả giá”.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Rạng sáng cùng ngày, phong trào Hồi giáo Hamas ở Dải Gaza đã bắn hàng nghìn quả rocket vào&nbsp;<a href=\"https://nhandan.vn/israel-tag7032.html\">Israel</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Cập nhật số thương vong trong ngày thứ 2 xảy ra xung đột giữa Israel và phong trào&nbsp;<a href=\"https://nhandan.vn/hamas-tag33167.html\">Hamas</a>, Văn phòng Báo chí của chính quyền Israel cho biết, số người thiệt mạng tại nước này đã tăng lên hơn 600 người. Hơn 100 người Israel bị Hamas bắt giữ. Kênh truyền hình nhà nước Kan TV (Israel) dẫn thông tin của Bộ Y tế nước này cho biết có hơn 2.000 người bị thương.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Trong khi đó, Bộ Y tế tại&nbsp;<a href=\"https://nhandan.vn/au-keu-goi-cac-ben-cham-dut-xung-dot-tai-dai-gaza-post776531.html\" target=\"_blank\" rel=\"noreferrer noopener\">Dải Gaza</a>&nbsp;cho biết, số người thiệt mạng tại đây tăng lên 313 người, trong đó có 20 trẻ em, và 1.990 người bị thương.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Theo Cơ quan Cứu trợ và Việc làm cho người tị nạn Palestine của Liên hợp quốc (UNRWA), ít nhất 20.000 người Palestine từ nhiều tỉnh của Dải Gaza đã phải dời đến các trường học thuộc cơ quan này.</p>\n<!-- /wp:paragraph -->', 'Israel tuyên bố tình trạng chiến tranh', '', 'inherit', 'closed', 'closed', '', '28-revision-v1', '', '', '2023-10-10 04:37:53', '2023-10-10 04:37:53', '', 28, 'http://localhost:82/NhomG_WP_CMS_2023/?p=29', 0, 'revision', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631termmeta`
+-- Table structure for table `wp_v631termmeta`
 --
 
-DROP TABLE IF EXISTS `wp_v631termmeta`;
-CREATE TABLE IF NOT EXISTS `wp_v631termmeta` (
-  `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `meta_key` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_520_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `term_id` (`term_id`),
-  KEY `meta_key` (`meta_key`(191))
+CREATE TABLE `wp_v631termmeta` (
+  `meta_id` bigint(20) UNSIGNED NOT NULL,
+  `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `meta_key` varchar(255) DEFAULT NULL,
+  `meta_value` longtext DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631terms`
+-- Table structure for table `wp_v631terms`
 --
 
-DROP TABLE IF EXISTS `wp_v631terms`;
-CREATE TABLE IF NOT EXISTS `wp_v631terms` (
-  `term_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `slug` varchar(200) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `term_group` bigint(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`term_id`),
-  KEY `slug` (`slug`(191)),
-  KEY `name` (`name`(191))
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+CREATE TABLE `wp_v631terms` (
+  `term_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(200) NOT NULL DEFAULT '',
+  `slug` varchar(200) NOT NULL DEFAULT '',
+  `term_group` bigint(20) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631terms`
+-- Dumping data for table `wp_v631terms`
 --
 
 INSERT INTO `wp_v631terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
@@ -467,20 +435,17 @@ INSERT INTO `wp_v631terms` (`term_id`, `name`, `slug`, `term_group`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631term_relationships`
+-- Table structure for table `wp_v631term_relationships`
 --
 
-DROP TABLE IF EXISTS `wp_v631term_relationships`;
-CREATE TABLE IF NOT EXISTS `wp_v631term_relationships` (
-  `object_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `term_order` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`object_id`,`term_taxonomy_id`),
-  KEY `term_taxonomy_id` (`term_taxonomy_id`)
+CREATE TABLE `wp_v631term_relationships` (
+  `object_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `term_order` int(11) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631term_relationships`
+-- Dumping data for table `wp_v631term_relationships`
 --
 
 INSERT INTO `wp_v631term_relationships` (`object_id`, `term_taxonomy_id`, `term_order`) VALUES
@@ -491,53 +456,46 @@ INSERT INTO `wp_v631term_relationships` (`object_id`, `term_taxonomy_id`, `term_
 (14, 1, 0),
 (19, 1, 0),
 (21, 1, 0),
-(24, 1, 0);
+(24, 1, 0),
+(28, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631term_taxonomy`
+-- Table structure for table `wp_v631term_taxonomy`
 --
 
-DROP TABLE IF EXISTS `wp_v631term_taxonomy`;
-CREATE TABLE IF NOT EXISTS `wp_v631term_taxonomy` (
-  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `taxonomy` varchar(32) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `description` longtext COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `parent` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `count` bigint(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`term_taxonomy_id`),
-  UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
-  KEY `taxonomy` (`taxonomy`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+CREATE TABLE `wp_v631term_taxonomy` (
+  `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL,
+  `term_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `taxonomy` varchar(32) NOT NULL DEFAULT '',
+  `description` longtext NOT NULL,
+  `parent` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `count` bigint(20) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631term_taxonomy`
+-- Dumping data for table `wp_v631term_taxonomy`
 --
 
 INSERT INTO `wp_v631term_taxonomy` (`term_taxonomy_id`, `term_id`, `taxonomy`, `description`, `parent`, `count`) VALUES
-(1, 1, 'category', '', 0, 3);
+(1, 1, 'category', '', 0, 4);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631usermeta`
+-- Table structure for table `wp_v631usermeta`
 --
 
-DROP TABLE IF EXISTS `wp_v631usermeta`;
-CREATE TABLE IF NOT EXISTS `wp_v631usermeta` (
-  `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `meta_key` varchar(255) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_520_ci,
-  PRIMARY KEY (`umeta_id`),
-  KEY `user_id` (`user_id`),
-  KEY `meta_key` (`meta_key`(191))
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+CREATE TABLE `wp_v631usermeta` (
+  `umeta_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `meta_key` varchar(255) DEFAULT NULL,
+  `meta_value` longtext DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631usermeta`
+-- Dumping data for table `wp_v631usermeta`
 --
 
 INSERT INTO `wp_v631usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALUES
@@ -582,34 +540,203 @@ INSERT INTO `wp_v631usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wp_v631users`
+-- Table structure for table `wp_v631users`
 --
 
-DROP TABLE IF EXISTS `wp_v631users`;
-CREATE TABLE IF NOT EXISTS `wp_v631users` (
-  `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_login` varchar(60) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `user_pass` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `user_nicename` varchar(50) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `user_email` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `user_url` varchar(100) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
+CREATE TABLE `wp_v631users` (
+  `ID` bigint(20) UNSIGNED NOT NULL,
+  `user_login` varchar(60) NOT NULL DEFAULT '',
+  `user_pass` varchar(255) NOT NULL DEFAULT '',
+  `user_nicename` varchar(50) NOT NULL DEFAULT '',
+  `user_email` varchar(100) NOT NULL DEFAULT '',
+  `user_url` varchar(100) NOT NULL DEFAULT '',
   `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_activation_key` varchar(255) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  `user_status` int(11) NOT NULL DEFAULT '0',
-  `display_name` varchar(250) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`ID`),
-  KEY `user_login_key` (`user_login`),
-  KEY `user_nicename` (`user_nicename`),
-  KEY `user_email` (`user_email`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+  `user_activation_key` varchar(255) NOT NULL DEFAULT '',
+  `user_status` int(11) NOT NULL DEFAULT 0,
+  `display_name` varchar(250) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `wp_v631users`
+-- Dumping data for table `wp_v631users`
 --
 
 INSERT INTO `wp_v631users` (`ID`, `user_login`, `user_pass`, `user_nicename`, `user_email`, `user_url`, `user_registered`, `user_activation_key`, `user_status`, `display_name`) VALUES
 (1, 'admin', '$P$BpgV1hiKF8YMJgotc4lGEegxtcwyRc1', 'admin', 'vuongvietthang135@gmail.com', 'http://localhost:82/NhomG_WP_CMS_2023', '2023-09-27 02:36:35', '', 0, 'admin'),
 (2, 'thanhlich', '$P$B.GVzcw0LwoaGrzLzLL9oRlZMl.QGy/', 'thanhlich', 'tlich555@gmail.com', 'http://TUYENDUNGG', '2023-10-10 03:54:58', '1696910098:$P$ByVeEQGeYLyh5cISYIbwY2EX7D7wJL0', 0, 'Thanh Lịch');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `wp_v631commentmeta`
+--
+ALTER TABLE `wp_v631commentmeta`
+  ADD PRIMARY KEY (`meta_id`),
+  ADD KEY `comment_id` (`comment_id`),
+  ADD KEY `meta_key` (`meta_key`(191));
+
+--
+-- Indexes for table `wp_v631comments`
+--
+ALTER TABLE `wp_v631comments`
+  ADD PRIMARY KEY (`comment_ID`),
+  ADD KEY `comment_post_ID` (`comment_post_ID`),
+  ADD KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
+  ADD KEY `comment_date_gmt` (`comment_date_gmt`),
+  ADD KEY `comment_parent` (`comment_parent`),
+  ADD KEY `comment_author_email` (`comment_author_email`(10));
+
+--
+-- Indexes for table `wp_v631links`
+--
+ALTER TABLE `wp_v631links`
+  ADD PRIMARY KEY (`link_id`),
+  ADD KEY `link_visible` (`link_visible`);
+
+--
+-- Indexes for table `wp_v631options`
+--
+ALTER TABLE `wp_v631options`
+  ADD PRIMARY KEY (`option_id`),
+  ADD UNIQUE KEY `option_name` (`option_name`),
+  ADD KEY `autoload` (`autoload`);
+
+--
+-- Indexes for table `wp_v631postmeta`
+--
+ALTER TABLE `wp_v631postmeta`
+  ADD PRIMARY KEY (`meta_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `meta_key` (`meta_key`(191));
+
+--
+-- Indexes for table `wp_v631posts`
+--
+ALTER TABLE `wp_v631posts`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `post_name` (`post_name`(191)),
+  ADD KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
+  ADD KEY `post_parent` (`post_parent`),
+  ADD KEY `post_author` (`post_author`);
+
+--
+-- Indexes for table `wp_v631termmeta`
+--
+ALTER TABLE `wp_v631termmeta`
+  ADD PRIMARY KEY (`meta_id`),
+  ADD KEY `term_id` (`term_id`),
+  ADD KEY `meta_key` (`meta_key`(191));
+
+--
+-- Indexes for table `wp_v631terms`
+--
+ALTER TABLE `wp_v631terms`
+  ADD PRIMARY KEY (`term_id`),
+  ADD KEY `slug` (`slug`(191)),
+  ADD KEY `name` (`name`(191));
+
+--
+-- Indexes for table `wp_v631term_relationships`
+--
+ALTER TABLE `wp_v631term_relationships`
+  ADD PRIMARY KEY (`object_id`,`term_taxonomy_id`),
+  ADD KEY `term_taxonomy_id` (`term_taxonomy_id`);
+
+--
+-- Indexes for table `wp_v631term_taxonomy`
+--
+ALTER TABLE `wp_v631term_taxonomy`
+  ADD PRIMARY KEY (`term_taxonomy_id`),
+  ADD UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
+  ADD KEY `taxonomy` (`taxonomy`);
+
+--
+-- Indexes for table `wp_v631usermeta`
+--
+ALTER TABLE `wp_v631usermeta`
+  ADD PRIMARY KEY (`umeta_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `meta_key` (`meta_key`(191));
+
+--
+-- Indexes for table `wp_v631users`
+--
+ALTER TABLE `wp_v631users`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `user_login_key` (`user_login`),
+  ADD KEY `user_nicename` (`user_nicename`),
+  ADD KEY `user_email` (`user_email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `wp_v631commentmeta`
+--
+ALTER TABLE `wp_v631commentmeta`
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `wp_v631comments`
+--
+ALTER TABLE `wp_v631comments`
+  MODIFY `comment_ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `wp_v631links`
+--
+ALTER TABLE `wp_v631links`
+  MODIFY `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `wp_v631options`
+--
+ALTER TABLE `wp_v631options`
+  MODIFY `option_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
+
+--
+-- AUTO_INCREMENT for table `wp_v631postmeta`
+--
+ALTER TABLE `wp_v631postmeta`
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `wp_v631posts`
+--
+ALTER TABLE `wp_v631posts`
+  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `wp_v631termmeta`
+--
+ALTER TABLE `wp_v631termmeta`
+  MODIFY `meta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `wp_v631terms`
+--
+ALTER TABLE `wp_v631terms`
+  MODIFY `term_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `wp_v631term_taxonomy`
+--
+ALTER TABLE `wp_v631term_taxonomy`
+  MODIFY `term_taxonomy_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `wp_v631usermeta`
+--
+ALTER TABLE `wp_v631usermeta`
+  MODIFY `umeta_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `wp_v631users`
+--
+ALTER TABLE `wp_v631users`
+  MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
